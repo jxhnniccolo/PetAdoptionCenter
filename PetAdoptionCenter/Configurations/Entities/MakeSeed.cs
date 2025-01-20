@@ -12,7 +12,11 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Make
                 {
                     Id = 1,
-                    Name = "BMW",
+                    Name = "john",
+                    Email = "john@admin.com",
+                    PhoneNumber = "987654321",
+                    Address = "punggol",
+                    Status = "Open",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -21,7 +25,11 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Make
                 {
                     Id = 2,
-                    Name = "Toyota",
+                    Name = "fitri",
+                    Email = "fitri@admin.com",
+                    PhoneNumber = "987654321",
+                    Address = "punggol",
+                    Status = "Open",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",

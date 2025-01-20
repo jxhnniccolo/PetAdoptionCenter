@@ -13,6 +13,10 @@ namespace PetAdoptionCenter.Configurations.Entities
                 {
                     Id = 1,
                     Name = "Black",
+                    Species = "Dog",
+                    Breeed = "poodle",
+                    Age = 18,
+                    Description = "Male",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -21,7 +25,11 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Colour
                 {
                     Id = 2,
-                    Name = "Blue",
+                    Name = "white",
+                    Species = "Dog",
+                    Breeed = "poodle",
+                    Age = 7,
+                    Description = "Female",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",

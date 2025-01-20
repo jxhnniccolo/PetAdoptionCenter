@@ -13,7 +13,11 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Model
                 {
                     Id = 1,
-                    Name = "i4",
+                    Status = "Open",
+                    ApplicationDate = DateTime.Now,
+                    ApprovalDate = DateTime .Now,
+                    UserID = 23,
+                    ProcessedBy = "ADMIN",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
