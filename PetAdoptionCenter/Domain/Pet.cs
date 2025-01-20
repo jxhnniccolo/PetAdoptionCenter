@@ -1,6 +1,6 @@
 ﻿namespace PetAdoptionCenter.Domain
 {
-    public class Pet
+    public class Pet:BaseDomainModel
     {
         public string? Name { get; set; }
         public string? Species { get; set; }

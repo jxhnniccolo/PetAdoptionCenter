@@ -1,0 +1,129 @@
+﻿@page "/volunteers/edit"
+@using Microsoft.EntityFrameworkCore
+@using PetAdoptionCenter.Domain
+@inject IDbContextFactory<PetAdoptionCenter.Data.PetAdoptionCenterContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Volunteer</h2>
+<hr />
+@if (Volunteer is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Volunteer" OnValidSubmit="UpdateVolunteer" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Volunteer.Id" value="@Volunteer.Id" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Volunteer.Name" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <InputText id="email" @bind-Value="Volunteer.Email" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.Email" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="phonenumber" class="form-label">PhoneNumber:</label>
+                    <InputText id="phonenumber" @bind-Value="Volunteer.PhoneNumber" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.PhoneNumber" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <InputText id="address" @bind-Value="Volunteer.Address" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status:</label>
+                    <InputText id="status" @bind-Value="Volunteer.Status" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.Status" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="datecreated" class="form-label">DateCreated:</label>
+                    <InputDate id="datecreated" @bind-Value="Volunteer.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateupdated" class="form-label">DateUpdated:</label>
+                    <InputDate id="dateupdated" @bind-Value="Volunteer.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.DateUpdated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="createdby" class="form-label">CreatedBy:</label>
+                    <InputText id="createdby" @bind-Value="Volunteer.CreatedBy" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.CreatedBy" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="updatedby" class="form-label">UpdatedBy:</label>
+                    <InputText id="updatedby" @bind-Value="Volunteer.UpdatedBy" class="form-control" />
+                    <ValidationMessage For="() => Volunteer.UpdatedBy" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/volunteers">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Volunteer? Volunteer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Volunteer ??= await context.Volunteer.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Volunteer is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateVolunteer()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Volunteer!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!VolunteerExists(Volunteer!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/volunteers");
+    }
+
+    private bool VolunteerExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Volunteer.Any(e => e.Id == id);
+    }
+}

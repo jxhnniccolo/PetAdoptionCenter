@@ -2,7 +2,7 @@
 
 namespace PetAdoptionCenter.Domain
 {
-    public class User
+    public class User : BaseDomainModel
     {
         public string? Name { get; set; }
         public string? Email { get; set; }

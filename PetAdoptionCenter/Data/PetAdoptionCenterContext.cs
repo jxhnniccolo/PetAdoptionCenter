@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PetAdoptionCenter.Configurations.Entities;
 using PetAdoptionCenter.Data;
+using PetAdoptionCenter.Domain;
 
 namespace PetAdoptionCenter.Data
 {
@@ -26,5 +27,10 @@ namespace PetAdoptionCenter.Data
             builder.ApplyConfiguration(new UserRoleSeed());
             builder.ApplyConfiguration(new UserSeed());
         }
+        public DbSet<PetAdoptionCenter.Domain.Pet> Pet { get; set; } = default!;
+        public DbSet<PetAdoptionCenter.Domain.Staff> Staff { get; set; } = default!;
+        public DbSet<PetAdoptionCenter.Domain.User> User { get; set; } = default!;
+        public DbSet<PetAdoptionCenter.Domain.AdoptionApplication> AdoptionApplication { get; set; } = default!;
+        public DbSet<PetAdoptionCenter.Domain.Volunteer> Volunteer { get; set; } = default!;
     }
 }

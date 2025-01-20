@@ -2,7 +2,7 @@
 
 namespace PetAdoptionCenter.Domain
 {
-    public class AdoptionApplication
+    public class AdoptionApplication : BaseDomainModel
     {
         public string? Status { get; set; }
         public DateTime? ApplicationDate { get; set; }
