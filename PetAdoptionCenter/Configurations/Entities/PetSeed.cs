@@ -14,7 +14,7 @@ namespace PetAdoptionCenter.Configurations.Entities
                     Id = 1,
                     Name = "Black",
                     Species = "Dog",
-                    Breeed = "poodle",
+                    Breeed = "Poodle",
                     Age = 18,
                     Description = "Male",
                     DateCreated = DateTime.Now,
@@ -25,9 +25,9 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Pet
                 {
                     Id = 2,
-                    Name = "white",
+                    Name = "White",
                     Species = "Dog",
-                    Breeed = "poodle",
+                    Breeed = "Poodle",
                     Age = 7,
                     Description = "Female",
                     DateCreated = DateTime.Now,
