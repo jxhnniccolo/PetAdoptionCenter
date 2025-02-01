@@ -12,8 +12,8 @@ using PetAdoptionCenter.Data;
 namespace PetAdoptionCenter.Migrations
 {
     [DbContext(typeof(PetAdoptionCenterContext))]
-    [Migration("20250120045042_AddedNewClass")]
-    partial class AddedNewClass
+    [Migration("20250201180438_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -254,7 +254,7 @@ namespace PetAdoptionCenter.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b21a8dd9-1b5d-4cf4-83cb-2c0bd30a2415",
+                            ConcurrencyStamp = "6ab4c30b-64ff-4664-91c1-f0e32d740ace",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -262,9 +262,9 @@ namespace PetAdoptionCenter.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENB3D/PpnPs6KF3k8Wii232pKYzaoJxAXW5hPTqMIMItTJq2ta7TsYwjYgV9RndjJQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE36NWFhr2HdgxHxMMPIBMjwG1PnzU6Z5ndMTP+DEzCibMY6frckI4bIbm1J3ubKBA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d2e29052-8985-462f-8233-c0c354694bbb",
+                            SecurityStamp = "914ad0b2-a46a-48dd-a072-6f6702b3e93c",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -281,8 +281,8 @@ namespace PetAdoptionCenter.Migrations
                     b.Property<DateTime?>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ApprovalDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("ApprovalDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -311,241 +311,21 @@ namespace PetAdoptionCenter.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AdoptionApplication");
-                });
-
-            modelBuilder.Entity("PetAdoptionCenter.Domain.Booking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Booking");
-                });
-
-            modelBuilder.Entity("PetAdoptionCenter.Domain.Colour", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colour");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            ApplicationDate = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9801),
+                            ApprovalDate = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9803),
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(5989),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6001),
-                            Name = "Black",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6052),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6053),
-                            Name = "Blue",
-                            UpdatedBy = "System"
-                        });
-                });
-
-            modelBuilder.Entity("PetAdoptionCenter.Domain.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DrivingLicense")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmailAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customer");
-                });
-
-            modelBuilder.Entity("PetAdoptionCenter.Domain.Make", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Make");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6508),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6509),
-                            Name = "BMW",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6511),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6511),
-                            Name = "Toyota",
-                            UpdatedBy = "System"
-                        });
-                });
-
-            modelBuilder.Entity("PetAdoptionCenter.Domain.Model", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Model");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6605),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6606),
-                            Name = "i4",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6607),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6608),
-                            Name = "X5",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6609),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6610),
-                            Name = "Prius",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6612),
-                            DateUpdated = new DateTime(2025, 1, 20, 12, 50, 40, 792, DateTimeKind.Local).AddTicks(6612),
-                            Name = "C-HR",
-                            UpdatedBy = "System"
+                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9804),
+                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9805),
+                            PetID = "dog",
+                            ProcessedBy = "ADMIN",
+                            Status = "Open",
+                            UpdatedBy = "System",
+                            UserID = 23
                         });
                 });
 
@@ -560,8 +340,8 @@ namespace PetAdoptionCenter.Migrations
                     b.Property<string>("Added_by")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Age")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
 
                     b.Property<string>("Breeed")
                         .HasColumnType("nvarchar(max)");
@@ -590,6 +370,34 @@ namespace PetAdoptionCenter.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pet");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 18,
+                            Breeed = "poodle",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9561),
+                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9572),
+                            Description = "Male",
+                            Name = "Black",
+                            Species = "Dog",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 7,
+                            Breeed = "poodle",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9574),
+                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9575),
+                            Description = "Female",
+                            Name = "white",
+                            Species = "Dog",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("PetAdoptionCenter.Domain.Staff", b =>
@@ -669,46 +477,6 @@ namespace PetAdoptionCenter.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("PetAdoptionCenter.Domain.Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ColourId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LicensePlateNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MakeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModelId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vehicle");
-                });
-
             modelBuilder.Entity("PetAdoptionCenter.Domain.Volunteer", b =>
                 {
                     b.Property<int>("Id")
@@ -747,6 +515,34 @@ namespace PetAdoptionCenter.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Volunteer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "punggol",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9738),
+                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9738),
+                            Email = "john@admin.com",
+                            Name = "john",
+                            PhoneNumber = "987654321",
+                            Status = "Open",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "punggol",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9740),
+                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9741),
+                            Email = "fitri@admin.com",
+                            Name = "fitri",
+                            PhoneNumber = "987654321",
+                            Status = "Open",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

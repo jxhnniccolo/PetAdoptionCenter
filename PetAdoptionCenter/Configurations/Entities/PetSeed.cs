@@ -4,30 +4,39 @@ using PetAdoptionCenter.Domain;
 
 namespace PetAdoptionCenter.Configurations.Entities
 {
-    public class MakeSeed : IEntityTypeConfiguration<Make>
+    public class PetSeed : IEntityTypeConfiguration<Pet>
     {
-        public void Configure(EntityTypeBuilder<Make> builder)
+        public void Configure(EntityTypeBuilder<Pet> builder)
         {
             builder.HasData(
-                new Make
+                new Pet
                 {
                     Id = 1,
-                    Name = "BMW",
+                    Name = "Black",
+                    Species = "Dog",
+                    Breeed = "poodle",
+                    Age = 18,
+                    Description = "Male",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
-                new Make
+                new Pet
                 {
                     Id = 2,
-                    Name = "Toyota",
+                    Name = "white",
+                    Species = "Dog",
+                    Breeed = "poodle",
+                    Age = 7,
+                    Description = "Female",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 }
             );
+
         }
     }
 }
