@@ -269,7 +269,7 @@ namespace PetAdoptionCenter.Migrations
             migrationBuilder.InsertData(
                 table: "AdoptionApplication",
                 columns: new[] { "Id", "ApplicationDate", "ApprovalDate", "CreatedBy", "DateCreated", "DateUpdated", "PetID", "ProcessedBy", "Status", "UpdatedBy", "UserID" },
-                values: new object[] { 1, new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9801), new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9803), "System", new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9804), new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9805), "dog", "ADMIN", "Open", "System", 23 });
+                values: new object[] { 1, new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8635), new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8643), "System", new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8652), new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8653), "dog", "ADMIN", "Open", "System", 23 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
@@ -283,15 +283,15 @@ namespace PetAdoptionCenter.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "6ab4c30b-64ff-4664-91c1-f0e32d740ace", "admin@localhost.com", true, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEE36NWFhr2HdgxHxMMPIBMjwG1PnzU6Z5ndMTP+DEzCibMY6frckI4bIbm1J3ubKBA==", null, false, "914ad0b2-a46a-48dd-a072-6f6702b3e93c", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "7a3da790-1265-48dd-bc14-eeaba5b6b477", "admin@localhost.com", true, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEH0QxNSneM/sUmQ30tM283x2jyvhrs3xBsWoCkU5OJ4Lp9nxixUhvDgvg9id7zodgA==", null, false, "46625ca7-bcd5-4088-8ca8-f715026432e8", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Pet",
                 columns: new[] { "Id", "Added_by", "Age", "Breeed", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Name", "Species", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, null, 18, "poodle", "System", new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9561), new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9572), "Male", "Black", "Dog", "System" },
-                    { 2, null, 7, "poodle", "System", new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9574), new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9575), "Female", "white", "Dog", "System" }
+                    { 1, null, 18, "Poodle", "System", new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7875), new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7901), "Male", "Black", "Dog", "System" },
+                    { 2, null, 7, "Poodle", "System", new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7911), new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7912), "Female", "White", "Dog", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -299,8 +299,8 @@ namespace PetAdoptionCenter.Migrations
                 columns: new[] { "Id", "Address", "CreatedBy", "DateCreated", "DateUpdated", "Email", "Name", "PhoneNumber", "Status", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "punggol", "System", new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9738), new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9738), "john@admin.com", "john", "987654321", "Open", "System" },
-                    { 2, "punggol", "System", new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9740), new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9741), "fitri@admin.com", "fitri", "987654321", "Open", "System" }
+                    { 1, "punggol", "System", new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8418), new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8420), "john@admin.com", "john", "987654321", "Open", "System" },
+                    { 2, "punggol", "System", new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8426), new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8427), "fitri@admin.com", "fitri", "987654321", "Open", "System" }
                 });
 
             migrationBuilder.InsertData(

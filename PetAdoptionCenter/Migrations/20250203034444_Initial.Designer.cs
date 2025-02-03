@@ -12,7 +12,7 @@ using PetAdoptionCenter.Data;
 namespace PetAdoptionCenter.Migrations
 {
     [DbContext(typeof(PetAdoptionCenterContext))]
-    [Migration("20250201180438_Initial")]
+    [Migration("20250203034444_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -254,7 +254,7 @@ namespace PetAdoptionCenter.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ab4c30b-64ff-4664-91c1-f0e32d740ace",
+                            ConcurrencyStamp = "7a3da790-1265-48dd-bc14-eeaba5b6b477",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -262,9 +262,9 @@ namespace PetAdoptionCenter.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE36NWFhr2HdgxHxMMPIBMjwG1PnzU6Z5ndMTP+DEzCibMY6frckI4bIbm1J3ubKBA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH0QxNSneM/sUmQ30tM283x2jyvhrs3xBsWoCkU5OJ4Lp9nxixUhvDgvg9id7zodgA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "914ad0b2-a46a-48dd-a072-6f6702b3e93c",
+                            SecurityStamp = "46625ca7-bcd5-4088-8ca8-f715026432e8",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -316,11 +316,11 @@ namespace PetAdoptionCenter.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationDate = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9801),
-                            ApprovalDate = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9803),
+                            ApplicationDate = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8635),
+                            ApprovalDate = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8643),
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9804),
-                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9805),
+                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8652),
+                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8653),
                             PetID = "dog",
                             ProcessedBy = "ADMIN",
                             Status = "Open",
@@ -376,10 +376,10 @@ namespace PetAdoptionCenter.Migrations
                         {
                             Id = 1,
                             Age = 18,
-                            Breeed = "poodle",
+                            Breeed = "Poodle",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9561),
-                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9572),
+                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7875),
+                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7901),
                             Description = "Male",
                             Name = "Black",
                             Species = "Dog",
@@ -389,12 +389,12 @@ namespace PetAdoptionCenter.Migrations
                         {
                             Id = 2,
                             Age = 7,
-                            Breeed = "poodle",
+                            Breeed = "Poodle",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9574),
-                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9575),
+                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7911),
+                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7912),
                             Description = "Female",
-                            Name = "white",
+                            Name = "White",
                             Species = "Dog",
                             UpdatedBy = "System"
                         });
@@ -522,8 +522,8 @@ namespace PetAdoptionCenter.Migrations
                             Id = 1,
                             Address = "punggol",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9738),
-                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9738),
+                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8418),
+                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8420),
                             Email = "john@admin.com",
                             Name = "john",
                             PhoneNumber = "987654321",
@@ -535,8 +535,8 @@ namespace PetAdoptionCenter.Migrations
                             Id = 2,
                             Address = "punggol",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9740),
-                            DateUpdated = new DateTime(2025, 2, 2, 2, 4, 37, 653, DateTimeKind.Local).AddTicks(9741),
+                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8426),
+                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8427),
                             Email = "fitri@admin.com",
                             Name = "fitri",
                             PhoneNumber = "987654321",
