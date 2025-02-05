@@ -1,5 +1,6 @@
 ﻿@implements IDisposable
 @inject NavigationManager NavigationManager
+
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">PetAdoptionCenter</a>
@@ -7,7 +8,6 @@
 </div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
@@ -16,17 +16,17 @@
             </NavLink>
         </div>
 
+        <!-- Conditional Navigation Links -->
         <AuthorizeView>
             <Authorized>
+                <!-- Links visible only to logged-in users -->
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Manage">
                         <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
                     </NavLink>
                 </div>
                 <AuthorizeView Roles="Administrator" Context="innerContext">
-
                 </AuthorizeView>
-
 
                 <div class="nav-item px-3">
                     <form action="Account/Logout" method="post">
@@ -37,8 +37,22 @@
                         </button>
                     </form>
                 </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="volunteerpage">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Volunteer page
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="adoptionapplicationpage">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> AdoptionApplication page
+                    </NavLink>
+                </div>
             </Authorized>
+
             <NotAuthorized>
+                <!-- Links visible only to non-logged-in users -->
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Register">
                         <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
@@ -51,24 +65,16 @@
                 </div>
             </NotAuthorized>
         </AuthorizeView>
+
+        <!-- Links visible to everyone -->
         <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="petpage">
+            <NavLink class="nav-link" href="petpage">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Pet page
-                    </NavLink>
-                </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="volunteerpage">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Volunteer page
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="adoptionapplicationpage">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> AdoptionApplication page
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="aboutus">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> AboutUs
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> About Us
             </NavLink>
         </div>
     </nav>
@@ -76,6 +82,7 @@
 
 @code {
     private string? currentUrl;
+
     protected override void OnInitialized()
     {
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
@@ -92,5 +99,4 @@
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
-
 }

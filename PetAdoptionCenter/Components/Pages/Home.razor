@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject NavigationManager NavigationManager
 <PageTitle>Home</PageTitle>
 
 <header>
@@ -12,8 +12,8 @@
             <a href="#">Link four</a>
         </nav>
         <div class="auth-buttons">
-            <button class="login">Login</button>
-            <button class="register">Register</button>
+            <button class="login" @onclick="NavigateToLogin">Login</button>
+            <button class="register" @onclick="NavigateToRegister">Register</button>
         </div>
     </div>
 </header>
@@ -21,15 +21,16 @@
 <main>
     <section class="hero">
         <h2> Bring Me Home</h2>
-        <p>Adopting a pet isn't just about gaining a companion; it's about giving a deserving animal a second chance at a happy life. 
-            Countless animals in shelters and rescues are waiting for loving homes, often through no fault of their own. 
-            By choosing adoption, you're not only welcoming a grateful animal into your family, but you're also making a difference in the fight against pet overpopulation. 
-            Adopting often means you're saving a life and freeing up valuable resources at shelters, allowing them to help even more animals in need. 
-            Plus, adopted pets often come with the added bonus of already being spayed/neutered and vaccinated, saving you both time and money.  
-            Open your heart and home to an adopted pet, and you'll discover the immeasurable love and joy they bring.</p>
+        <p>
+            Adopting a pet isn't just about gaining a companion; it's about giving a deserving animal a second chance at a happy life.
+            Countless animals in shelters and rescues are waiting for loving homes, often through no fault of their own.
+            By choosing adoption, you're not only welcoming a grateful animal into your family, but you're also making a difference in the fight against pet overpopulation.
+            Adopting often means you're saving a life and freeing up valuable resources at shelters, allowing them to help even more animals in need.
+            Plus, adopted pets often come with the added bonus of already being spayed/neutered and vaccinated, saving you both time and money.
+            Open your heart and home to an adopted pet, and you'll discover the immeasurable love and joy they bring.
+        </p>
         <div class="hero-buttons">
             <button class="adopt-now">Adopt Now</button>
-            
         </div>
     </section>
 
@@ -37,8 +38,10 @@
         <div class="card">
             <img src="Image/cat2.png" alt="Cat" width="300" height="300">
             <h3>Domestic Shorthair (Tabby)</h3>
-            <p>Leo was found as a stray kitten and brought to the shelter. 
-                He's been in our care for several months and is now ready to find his forever home.</p>
+            <p>
+                Leo was found as a stray kitten and brought to the shelter.
+                He's been in our care for several months and is now ready to find his forever home.
+            </p>
             <a href="#">Read more</a>
         </div>
         <div class="card">
@@ -57,48 +60,19 @@
 </main>
 
 <footer>
-    <div class="footer-content">
-        <div class="footer-links">
-            <div>
-                <h4>Column one</h4>
-                <a href="#">Link one</a>
-                <a href="#">Link two</a>
-                <a href="#">Link three</a>
-                <a href="#">Link four</a>
-            </div>
-            <div>
-                <h4>Column two</h4>
-                <a href="#">Link five</a>
-                <a href="#">Link six</a>
-                <a href="#">Link seven</a>
-                <a href="#">Link eight</a>
-            </div>
-            <div>
-                <h4>Column three</h4>
-                <a href="#">Link nine</a>
-                <a href="#">Link ten</a>
-                <a href="#">Link eleven</a>
-                <a href="#">Link twelve</a>
-            </div>
-        </div>
-        <div class="subscribe">
-            <h4>Subscribe</h4>
-            <p>Simply enter your email below:</p>
-            <input type="email" placeholder="Placeholder" />
-            <button>Subscribe</button>
-            <p>By subscribing, you agree to receive emails from us and acknowledge our Privacy Policy.</p>
-        </div>
-    </div>
     <div class="footer-bottom">
-        <p>&copy; 2024 Your Website. All rights reserved.</p>
-        <nav>
-            <a href="#">Privacy Policy</a>
-            <span>|</span>
-            <a href="#">Terms of Service</a>
-        </nav>
+        <p>&copy; 2025 Bring Me Home!. All rights reserved.</p>
     </div>
 </footer>
 
 @code {
-    
+    private void NavigateToLogin()
+    {
+        NavigationManager.NavigateTo("login");
+    }
+
+    private void NavigateToRegister()
+    {
+        NavigationManager.NavigateTo("register");
+    }
 }
