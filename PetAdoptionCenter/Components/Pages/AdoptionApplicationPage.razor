@@ -1,38 +1,40 @@
 ﻿@page "/adoptionapplicationpage"
 
+<h1 class="text-center mb-5">Adoption Application</h1>
 
-<h1 class="text-center">Adoption Application</h1>
-
-<section class="intro-section">
-    <p>
-        Thank you for considering adopting a pet and giving them a loving forever home! Please fill out the application form below, and we’ll get back to you as soon as possible to help you start this heartwarming journey.
-    </p>
+<section class="hero-section d-flex align-items-center" style="background-color: #FFDAB9; min-height: 400px; position: relative;">
+    <img src="Image/appli.png" alt="Adoption Banner" class="img-fluid position-absolute w-100 h-100" style="object-fit: cover; opacity: 0.7;">
+    <div class="container text-center position-relative" style="z-index: 1;">
+        <p class="lead">
+            Thank you for considering adopting a pet and giving them a loving forever home! Please fill out the application form below, and we’ll get back to you as soon as possible to help you start this heartwarming journey.
+        </p>
+    </div>
 </section>
 
-<form class="application-form">
-    <div class="form-group">
-        <label for="name">Full Name</label>
-        <input id="name" type="text" placeholder="Enter your full name" />
+<form class="application-form mt-5">
+    <div class="form-group mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <input id="name" type="text" class="form-control" placeholder="Enter your full name" />
     </div>
 
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input id="email" type="email" placeholder="Enter your email" />
+    <div class="form-group mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input id="email" type="email" class="form-control" placeholder="Enter your email" />
     </div>
 
-    <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input id="phone" type="tel" placeholder="Enter your phone number" />
+    <div class="form-group mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input id="phone" type="tel" class="form-control" placeholder="Enter your phone number" />
     </div>
 
-    <div class="form-group">
-        <label for="address">Home Address</label>
-        <textarea id="address" placeholder="Enter your full home address"></textarea>
+    <div class="form-group mb-3">
+        <label for="address" class="form-label">Home Address</label>
+        <textarea id="address" class="form-control" placeholder="Enter your full home address"></textarea>
     </div>
 
-    <div class="form-group">
-        <label for="pet">Which Pet Are You Interested In?</label>
-        <select id="pet">
+    <div class="form-group mb-3">
+        <label for="pet" class="form-label">Which Pet Are You Interested In?</label>
+        <select id="pet" class="form-select">
             <option disabled selected>Select a pet</option>
             <option>Domestic Shorthair (Tabby)</option>
             <option>Golden Retriever</option>
@@ -41,26 +43,25 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <label for="reason">Why Do You Want to Adopt a Pet?</label>
-        <textarea id="reason" placeholder="Tell us why you’d like to adopt a pet"></textarea>
+    <div class="form-group mb-3">
+        <label for="reason" class="form-label">Why Do You Want to Adopt a Pet?</label>
+        <textarea id="reason" class="form-control" placeholder="Tell us why you’d like to adopt a pet"></textarea>
     </div>
 
-    <div class="form-group">
-        <label for="experience">Do You Have Experience with Pets?</label>
-        <textarea id="experience" placeholder="Share any relevant experience caring for pets"></textarea>
+    <div class="form-group mb-3">
+        <label for="experience" class="form-label">Do You Have Experience with Pets?</label>
+        <textarea id="experience" class="form-control" placeholder="Share any relevant experience caring for pets"></textarea>
     </div>
 
-    <div class="form-group">
-        <label for="terms">
-            <input id="terms" type="checkbox" />
-            I agree to the <a href="/terms-and-conditions">terms and conditions</a>.
+    <div class="form-group mb-3 d-flex align-items-center">
+        <input id="terms" type="checkbox" class="form-check-input" />
+        <label for="terms" class="form-check-label ms-2">
+            I agree to the <a href="/terms-and-conditions" class="text-decoration-none">terms and conditions</a>.
         </label>
     </div>
 
-    <button type="submit" class="btn-primary">Submit Application</button>
+    <button type="submit" class="btn btn-primary w-100">Submit Application</button>
 </form>
 
 @code {
-
 }

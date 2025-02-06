@@ -1,24 +1,25 @@
 ﻿@page "/petpage"
+@rendermode InteractiveServer
 
-<header class="header py-4 bg-primary text-white">
+<header class="header py-4" style="background-color: #87CEFA; color: white;">
     <h1 class="text-center">Adopt a Pet</h1>
     <nav class="nav justify-content-center">
-        <a href="#" class="nav-link text-white">Link one</a>
-        <a href="#" class="nav-link text-white">Link two</a>
-        <a href="#" class="nav-link text-white">Link three</a>
-        <a href="#" class="nav-link text-white">Link four</a>
+        <NavLink href="/" class="nav-link text-white" active-class="active">Home</NavLink>
+        <NavLink href="/petpage" class="nav-link text-white" active-class="active">Pet Page</NavLink>
+        <NavLink href="/volunteerpage" class="nav-link text-white" active-class="active">Volunteer</NavLink>
+        <NavLink href="/adoptionapplicationpage" class="nav-link text-white" active-class="active">Adoption Application</NavLink>
     </nav>
 </header>
 
-<section class="hero text-center py-5">
-    <img src="images/pets/placeholder.jpg" alt="Pet Picture" class="img-fluid rounded-lg shadow-lg">
-    <h2 class="mt-3 text-primary">Find Your Perfect Match</h2>
-    <p>Find your new companion and give a deserving animal a loving home. Browse our adoptable pets and discover your new best friend.</p>
+<section class="hero d-flex align-items-center" style="background-color: #FFDAB9; min-height: 400px; position: relative;">
+    <img src="Image/petPage.jpg" alt="Pet Picture" class="img-fluid position-absolute w-100 h-100" style="object-fit: cover; opacity: 0.7;">
+    <div class="container text-center position-relative" style="z-index: 1;">
+        <h2 class="text-black">Find Your Perfect Match</h2>
+        <p class="text-black">Find your new companion and give a deserving animal a loving home. Browse our adoptable pets and discover your new best friend.</p>
+    </div>
 </section>
 
----
-
-<section class="section py-5">
+<section class="section py-5" style="background-color: #F5F5F5;">
     <h3 class="text-center text-primary">Adopt a Pet</h3>
     <p class="text-center">Choose your perfect furry friend! Each pet is unique and looking for a forever home.</p>
 
@@ -29,7 +30,7 @@
             <div class="card-body">
                 <h4 class="card-title">Leo</h4>
                 <p class="card-text">Leo is a friendly and playful boy who loves attention. He's curious and enjoys exploring his surroundings. He gets along well with other cats but hasn't been tested with dogs or children.</p>
-                <button class="btn btn-primary w-100">Adopt</button>
+                <NavLink href="/adoptionapplicationpage" class="btn btn-primary w-100">Adopt</NavLink>
             </div>
         </div>
 
@@ -39,7 +40,7 @@
             <div class="card-body">
                 <h4 class="card-title">Luna</h4>
                 <p class="card-text">Luna is sweet and energetic. She loves to play fetch, go for walks, and cuddle on the couch. She gets along well with dogs but her interactions with cats are unknown. A home with older children would be ideal.</p>
-                <button class="btn btn-primary w-100">Adopt</button>
+                <NavLink href="/adoptionapplicationpage" class="btn btn-primary w-100">Adopt</NavLink>
             </div>
         </div>
 
@@ -49,15 +50,13 @@
             <div class="card-body">
                 <h4 class="card-title">Jasper</h4>
                 <p class="card-text">Jasper is a playful and curious kitten with a lot of energy. He loves chasing toys and cuddling. He gets along with gentle cats but hasn’t been introduced to dogs.</p>
-                <button class="btn btn-primary w-100">Adopt</button>
+                <NavLink href="/adoptionapplicationpage" class="btn btn-primary w-100">Adopt</NavLink>
             </div>
         </div>
     </div>
 </section>
 
----
-
-<footer class="footer py-4 bg-dark text-white">
+<footer class="footer py-4" style="background-color: #4682B4; color: white;">
     <div class="container text-center">
         <p>&copy; 2024 Your Website. All rights reserved.</p>
         <nav>
@@ -68,5 +67,5 @@
 </footer>
 
 @code {
-    // You can add more interactivity or code for adoption actions here if needed.
+    // Add any required code here if needed.
 }

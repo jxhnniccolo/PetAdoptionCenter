@@ -3,65 +3,69 @@
 
 <h1 class="text-center mb-4 text-primary">Become a Volunteer</h1>
 
-<section class="hero-section d-flex justify-content-between align-items-center py-5">
-    <div class="hero-content">
-        <h2>Make a Difference Today!</h2>
-        <p>
+<section class="hero-section d-flex align-items-center" style="background-color: #FFDAB9; min-height: 400px; position: relative;">
+    <img src="Image/v2.jpg" alt="Volunteering with pets" class="img-fluid position-absolute w-100 h-100" style="object-fit: cover; opacity: 0.7;">
+    <div class="container text-center position-relative" style="z-index: 1;">
+        <h2 class="text-black">Make a Difference Today!</h2>
+        <p class="text-black">
             Volunteering with us is more than just lending a hand—it's about saving lives, creating meaningful connections, and being a part of a community that cares deeply about animals.
             Whether you’re helping with pet care, organizing events, or spreading the word, every moment you spend volunteering makes an impact.
         </p>
     </div>
-    <div class="hero-image">
-        <img src="images/volunteer/hero-image.jpg" alt="Volunteering with pets" class="img-fluid rounded-lg shadow-lg" />
-    </div>
 </section>
 
----
-
-<section class="benefits-section py-5">
+<section class="benefits-section py-5" style="background: linear-gradient(to bottom, #FFFFFF, #E6E6FA);">
     <h2 class="text-center text-primary">Why Volunteer?</h2>
     <div class="benefits-grid d-flex flex-wrap justify-content-around">
-        <div class="benefit-card shadow-lg p-4 rounded mb-4">
-            <img src="images/icons/heart.svg" alt="Make a difference icon" class="benefit-icon mb-3" />
-            <h3>Make a Difference</h3>
-            <p>Your efforts will help provide a loving home for countless animals in need.</p>
+        <div class="benefit-card shadow-lg rounded mb-4 position-relative" style="background-color: #F5F5F5; width: 300px; height: 300px;">
+            <img src="Image/2.jpg" alt="Make a difference icon"
+                 class="position-absolute w-100 h-100 rounded"
+                 style="object-fit: cover; opacity: 0.7;">
+            <div class="text-content position-relative text-center p-3" style="z-index: 1;">
+                <h3>Make a Difference</h3>
+                <p>Your efforts will help provide a loving home for countless animals in need.</p>
+            </div>
         </div>
-        <div class="benefit-card shadow-lg p-4 rounded mb-4">
-            <img src="images/icons/community.svg" alt="Community icon" class="benefit-icon mb-3" />
-            <h3>Be Part of a Community</h3>
-            <p>Join a group of passionate animal lovers and make lifelong friends.</p>
+        <div class="benefit-card shadow-lg rounded mb-4 position-relative" style="background-color: #F5F5F5; width: 300px; height: 300px;">
+            <img src="Image/com.jpg" alt="Community icon"
+                 class="position-absolute w-100 h-100 rounded"
+                 style="object-fit: cover; opacity: 0.7;">
+            <div class="text-content position-relative text-center p-3" style="z-index: 1;">
+                <h3>Be Part of a Community</h3>
+                <p>Join a group of passionate animal lovers and make lifelong friends.</p>
+            </div>
         </div>
-        <div class="benefit-card shadow-lg p-4 rounded mb-4">
-            <img src="images/icons/skills.svg" alt="Learn new skills icon" class="benefit-icon mb-3" />
-            <h3>Learn & Grow</h3>
-            <p>Enhance your skills in pet care, event organization, and leadership.</p>
+        <div class="benefit-card shadow-lg rounded mb-4 position-relative" style="background-color: #F5F5F5; width: 300px; height: 300px;">
+            <img src="Image/skill.png" alt="Learn new skills icon"
+                 class="position-absolute w-100 h-100 rounded"
+                 style="object-fit: cover; opacity: 0.7;">
+            <div class="text-content position-relative text-center p-3" style="z-index: 1;">
+                <h3>Learn & Grow</h3>
+                <p>Enhance your skills in pet care, event organization, and leadership.</p>
+            </div>
         </div>
     </div>
 </section>
 
----
-
-<section class="testimonials-section py-5 bg-light">
+<section class="testimonials-section py-5" style="background: linear-gradient(to right, #FFEFDB, #FFE4E1);">
     <h2 class="text-center text-primary">What Our Volunteers Say</h2>
     <div class="testimonial-cards d-flex flex-wrap justify-content-around">
-        <div class="testimonial-card shadow-lg p-4 rounded mb-4">
+        <div class="testimonial-card shadow-lg p-4 rounded mb-4" style="background-color: #FFFFFF;">
             <p>"Volunteering here changed my life. I’ve found a new purpose and met amazing people along the way!"</p>
             <h4>- Emily R.</h4>
         </div>
-        <div class="testimonial-card shadow-lg p-4 rounded mb-4">
+        <div class="testimonial-card shadow-lg p-4 rounded mb-4" style="background-color: #FFFFFF;">
             <p>"Seeing a rescued pet find a loving home is the best feeling in the world. Highly recommend it!"</p>
             <h4>- Michael T.</h4>
         </div>
-        <div class="testimonial-card shadow-lg p-4 rounded mb-4">
+        <div class="testimonial-card shadow-lg p-4 rounded mb-4" style="background-color: #FFFFFF;">
             <p>"I’ve gained so much experience and joy from working with such a dedicated team!"</p>
             <h4>- Sarah L.</h4>
         </div>
     </div>
 </section>
 
----
-
-<section class="cta-section py-5">
+<section class="cta-section py-5" style="background: linear-gradient(to bottom, #FFD700, #FFA07A);">
     <h2 class="text-center text-primary">Ready to Make an Impact?</h2>
     <p class="text-center">
         Join our volunteer team today and start making a difference in the lives of animals and their future families.
@@ -71,15 +75,72 @@
     </div>
 </section>
 
----
+<!-- Modal for Sign-Up Form -->
+@if (isSignUpFormVisible)
+{
+    <div class="modal fade show" tabindex="-1" style="display: block;" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Volunteer Sign-Up</h5>
+                    <button type="button" class="btn-close" @onclick="HideSignUpForm"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@volunteer" OnValidSubmit="HandleSignUp">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <InputText id="fullName" class="form-control" @bind-Value="volunteer.FullName" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <InputText id="email" class="form-control" @bind-Value="volunteer.Email" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <InputText id="phone" class="form-control" @bind-Value="volunteer.Phone" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Why do you want to volunteer?</label>
+                            <InputTextArea id="message" class="form-control" @bind-Value="volunteer.Message" />
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
-    // Placeholder for sign-up functionality
+    private bool isSignUpFormVisible = false;
+    private Volunteer volunteer = new Volunteer();
+
     private void ShowSignUpForm()
     {
-        // Placeholder for actual logic to show a sign-up form
-        // For now, we will just show a console message
-        Console.WriteLine("Sign-up form should appear here!");
-        // You can replace the above code with logic to show a modal or redirect to a new page for the sign-up form
+        isSignUpFormVisible = true;
+    }
+
+    private void HideSignUpForm()
+    {
+        isSignUpFormVisible = false;
+    }
+
+    private void HandleSignUp()
+    {
+        // Process the volunteer sign-up here (e.g., save the data)
+        Console.WriteLine($"Volunteer signed up: {volunteer.FullName}, {volunteer.Email}");
+        HideSignUpForm(); // Close the form after submission
+    }
+
+    public class Volunteer
+    {
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Message { get; set; }
     }
 }

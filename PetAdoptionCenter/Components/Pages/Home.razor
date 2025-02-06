@@ -1,78 +1,134 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 <PageTitle>Home</PageTitle>
 
-<header>
-    <div class="header-content">
-        <div class="logo">Logo</div>
-        <nav>
-            <a href="#">Link one</a>
-            <a href="#">Link two</a>
-            <a href="#">Link three</a>
-            <a href="#">Link four</a>
-        </nav>
-        <div class="auth-buttons">
-            <button class="login" @onclick="NavigateToLogin">Login</button>
-            <button class="register" @onclick="NavigateToRegister">Register</button>
-        </div>
-    </div>
-</header>
+<style>
+
+    /* Reset default margin and padding */
+
+
+    /* Full-screen hero section */
+    .hero {
+        position: relative;
+        text-align: center;
+        color: white;
+        background-image: url('Image/ourStory.jpg'); /* Ensure correct path */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+        /* Dark overlay for readability */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+    /* Hero content */
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    .hero h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 10px auto;
+    }
+
+    /* Keep NavMenu size unchanged */
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px; /* Original spacing */
+        margin-bottom: 20px;
+    }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+            nav a:hover {
+                color: #ffcc00; /* Highlight effect */
+            }
+
+    /* CTA Button */
+    .adopt-now {
+        background-color: #ff9800;
+        color: white;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+        .adopt-now:hover {
+            background-color: #e68900;
+            transform: scale(1.05);
+        }
+
+    /* Footer */
+    .footer-bottom {
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+        font-size: 14px;
+        color: #333;
+    }
+</style>
 
 <main>
     <section class="hero">
-        <h2> Bring Me Home</h2>
-        <p>
-            Adopting a pet isn't just about gaining a companion; it's about giving a deserving animal a second chance at a happy life.
-            Countless animals in shelters and rescues are waiting for loving homes, often through no fault of their own.
-            By choosing adoption, you're not only welcoming a grateful animal into your family, but you're also making a difference in the fight against pet overpopulation.
-            Adopting often means you're saving a life and freeing up valuable resources at shelters, allowing them to help even more animals in need.
-            Plus, adopted pets often come with the added bonus of already being spayed/neutered and vaccinated, saving you both time and money.
-            Open your heart and home to an adopted pet, and you'll discover the immeasurable love and joy they bring.
-        </p>
-        <div class="hero-buttons">
-            <button class="adopt-now">Adopt Now</button>
-        </div>
-    </section>
-
-    <section class="pet-cards">
-        <div class="card">
-            <img src="Image/cat2.png" alt="Cat" width="300" height="300">
-            <h3>Domestic Shorthair (Tabby)</h3>
+        <div class="hero-content">
+            <nav>
+                <NavLink href="/" class="nav-link text-white" active-class="active">Home</NavLink>
+                <NavLink href="/petpage" class="nav-link text-white" active-class="active">Pet Page</NavLink>
+                <NavLink href="/volunteerpage" class="nav-link text-white" active-class="active">Volunteer</NavLink>
+                <NavLink href="/adoptionapplicationpage" class="nav-link text-white" active-class="active">Adoption Application</NavLink>
+            </nav>
+            <h2>Bring Me Home</h2>
             <p>
-                Leo was found as a stray kitten and brought to the shelter.
-                He's been in our care for several months and is now ready to find his forever home.
+                Adopting a pet provides a loving companion, helps reduce pet overpopulation, and saves shelter resources.
+                Adopted pets often come spayed/neutered and vaccinated, saving you time and money.
+                Experience the love and joy of an adopted pet. 🐾🐾🐾🐾🐾
             </p>
-            <a href="#">Read more</a>
-        </div>
-        <div class="card">
-            <img src="Image/Dog1.png" alt="Dog" width="300" height="300">
-            <h3>Mixed Breed (likely Lab/Terrier mix)</h3>
-            <p>Luna was surrendered to the shelter by her previous owners who were no longer able to care for her.</p>
-            <a href="#">Read more</a>
-        </div>
-        <div class="card">
-            <img src="Image/Cat3.png" alt="Cat" width="300" height="300">
-            <h3>Domestic Longhair (Calico)</h3>
-            <p>Jasper was rescued from a local colony of feral cats. He's been socialized in a foster home and is now ready for his forever family.</p>
-            <a href="#">Read more</a>
+            <div class="hero-buttons">
+                <button class="adopt-now">Adopt Now</button>
+            </div>
         </div>
     </section>
 </main>
 
 <footer>
     <div class="footer-bottom">
-        <p>&copy; 2025 Bring Me Home!. All rights reserved.</p>
+        <p>&copy; 2025 Bring Me Home! All rights reserved.</p>
     </div>
 </footer>
-
-@code {
-    private void NavigateToLogin()
-    {
-        NavigationManager.NavigateTo("login");
-    }
-
-    private void NavigateToRegister()
-    {
-        NavigationManager.NavigateTo("register");
-    }
-}
