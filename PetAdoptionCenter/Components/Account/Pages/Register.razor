@@ -18,54 +18,85 @@
 
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
+<div class="register-container">
+    <div class="register-card shadow-lg rounded p-4">
+        <h2 class="text-center text-primary">🐾 Create Your Account 🐾</h2>
+        <p class="text-center text-muted">Join our community and help save animals!</p>
+        <hr />
 
-<div class="row">
-    <div class="col-md-4">
         <StatusMessage Message="@Message" />
+
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
+
             <ValidationSummary class="text-danger" role="alert" />
+
             <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
+                <label for="email">📧 Email</label>
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
+
             <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.FirstName" class="form-control"
-                           autocomplete="firstname" aria-required="true" placeholder="Bill" />
-                <label for="email">First Name</label>
+                <InputText @bind-Value="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="First Name" />
+                <label for="firstname">👤 First Name</label>
                 <ValidationMessage For="() => Input.FirstName" class="text-danger" />
             </div>
+
             <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.LastName" class="form-control"
-                           autocomplete="lastname" aria-required="true" placeholder="Gates" />
-                <label for="email">Last Name</label>
+                <InputText @bind-Value="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="Last Name" />
+                <label for="lastname">👤 Last Name</label>
                 <ValidationMessage For="() => Input.LastName" class="text-danger" />
             </div>
+
             <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
+                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                <label for="password">🔑 Password</label>
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
+
             <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
+                <label for="confirm-password">🔑 Confirm Password</label>
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+            <button type="submit" class="w-100 btn btn-lg btn-success mt-2">🐶 Register Now</button>
         </EditForm>
+
+        <p class="text-center mt-3">Already have an account? <a href="/Account/Login" class="text-decoration-none">Login here</a></p>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
+
+    <div class="register-card shadow-lg rounded p-4 mt-4">
+        <h3 class="text-center text-secondary">🌐 Register with Social Media</h3>
+        <hr />
+        <ExternalLoginPicker />
     </div>
 </div>
+
+<style>
+    .register-container {
+        max-width: 500px;
+        margin: 3rem auto;
+    }
+
+    .register-card {
+        background: white;
+        border-radius: 10px;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .register-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+    .btn-success:hover {
+        background-color: #28a745;
+        transform: scale(1.05);
+    }
+</style>
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;
@@ -89,7 +120,6 @@
         user.FirstName = Input.FirstName;
         user.LastName = Input.LastName;
 
-
         var result = await UserManager.CreateAsync(user, Input.Password);
 
         if (!result.Succeeded)
@@ -98,15 +128,13 @@
             return;
         }
 
-        //create the user role if it doesn't exist
         if (!await RoleManager.RoleExistsAsync("User"))
         {
             await RoleManager.CreateAsync(new IdentityRole("User"));
         }
-        //add the user to the user role
+
         await UserManager.AddToRoleAsync(user, "User");
-        //add the user id as claim when user registers
-        await UserManager.AddClaimAsync(user, new System.Security.Claims.Claim("userId" ,user.Id));
+        await UserManager.AddClaimAsync(user, new System.Security.Claims.Claim("userId", user.Id));
 
         Logger.LogInformation("User created a new account with password.");
 
@@ -121,8 +149,7 @@
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
-            RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
+            RedirectManager.RedirectTo("Account/RegisterConfirmation",
                 new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
         }
 
@@ -162,6 +189,7 @@
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; } = "";
+
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; } = "";

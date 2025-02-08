@@ -12,11 +12,12 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Pet
                 {
                     Id = 1,
-                    Name = "Black",
+                    Name = "Luna",
                     Species = "Dog",
                     Breeed = "Poodle",
-                    Age = 18,
+                    Age = 10,
                     Description = "Male",
+                    ImageUrl = "Image/luna.jpg", // Added image URL
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -25,18 +26,32 @@ namespace PetAdoptionCenter.Configurations.Entities
                 new Pet
                 {
                     Id = 2,
-                    Name = "White",
+                    Name = "Crunchy",
                     Species = "Dog",
                     Breeed = "Poodle",
                     Age = 7,
                     Description = "Female",
+                    ImageUrl = "Image/crunchy.jpg", // Added image URL
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
+                },
+                new Pet
+                {
+                    Id = 3,
+                    Name = "Leo",
+                    Species = "Cat",
+                    Breeed = "Maine Coon",
+                    Age = 2,
+                    Description = "Male",
+                    ImageUrl = "Image/cat_leo.jpg", // Added image URL
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 }
             );
-
         }
     }
 }

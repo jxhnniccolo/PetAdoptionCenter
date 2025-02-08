@@ -251,7 +251,7 @@ namespace PetAdoptionCenter.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a3da790-1265-48dd-bc14-eeaba5b6b477",
+                            ConcurrencyStamp = "8cfd4cd1-33d2-4fdc-a8c1-24ca7bb8e7ed",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -259,9 +259,9 @@ namespace PetAdoptionCenter.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH0QxNSneM/sUmQ30tM283x2jyvhrs3xBsWoCkU5OJ4Lp9nxixUhvDgvg9id7zodgA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIjpaoSBcaehzpNMYeofkzXzHs50ZJD1rqhY82eyLkPZOnk+XHXYFhZty4Y0rCsH5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "46625ca7-bcd5-4088-8ca8-f715026432e8",
+                            SecurityStamp = "9de3fe8e-dbbf-4768-9397-2f403852ae44",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -278,9 +278,6 @@ namespace PetAdoptionCenter.Migrations
                     b.Property<DateTime?>("ApplicationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("ApprovalDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -290,20 +287,24 @@ namespace PetAdoptionCenter.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PetID")
+                    b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PetID")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProcessedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -313,16 +314,42 @@ namespace PetAdoptionCenter.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationDate = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8635),
-                            ApprovalDate = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8643),
+                            ApplicationDate = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5694),
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8652),
-                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8653),
-                            PetID = "dog",
-                            ProcessedBy = "ADMIN",
-                            Status = "Open",
-                            UpdatedBy = "System",
-                            UserID = 23
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5696),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5697),
+                            Email = "user@example.com",
+                            IsApproved = true,
+                            IsDeleted = false,
+                            PetID = 101,
+                            ProcessedBy = "admin@localhost.com",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApplicationDate = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5698),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5699),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5700),
+                            Email = "pending_user@example.com",
+                            IsApproved = false,
+                            IsDeleted = false,
+                            PetID = 102,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ApplicationDate = new DateTime(2025, 1, 30, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5701),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 1, 30, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5706),
+                            DateUpdated = new DateTime(2025, 1, 30, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5707),
+                            Email = "deleted_user@example.com",
+                            IsApproved = false,
+                            IsDeleted = true,
+                            PetID = 103,
+                            UpdatedBy = "System"
                         });
                 });
 
@@ -355,6 +382,9 @@ namespace PetAdoptionCenter.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -372,13 +402,14 @@ namespace PetAdoptionCenter.Migrations
                         new
                         {
                             Id = 1,
-                            Age = 18,
+                            Age = 10,
                             Breeed = "Poodle",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7875),
-                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7901),
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5462),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5473),
                             Description = "Male",
-                            Name = "Black",
+                            ImageUrl = "Image/luna.jpg",
+                            Name = "Luna",
                             Species = "Dog",
                             UpdatedBy = "System"
                         },
@@ -388,11 +419,26 @@ namespace PetAdoptionCenter.Migrations
                             Age = 7,
                             Breeed = "Poodle",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7911),
-                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(7912),
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5475),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5476),
                             Description = "Female",
-                            Name = "White",
+                            ImageUrl = "Image/crunchy.jpg",
+                            Name = "Crunchy",
                             Species = "Dog",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 2,
+                            Breeed = "Maine Coon",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5478),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5478),
+                            Description = "Male",
+                            ImageUrl = "Image/cat_leo.jpg",
+                            Name = "Leo",
+                            Species = "Cat",
                             UpdatedBy = "System"
                         });
                 });
@@ -497,13 +543,13 @@ namespace PetAdoptionCenter.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -519,12 +565,12 @@ namespace PetAdoptionCenter.Migrations
                             Id = 1,
                             Address = "punggol",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8418),
-                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8420),
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5628),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5628),
                             Email = "john@admin.com",
+                            IsApproved = true,
                             Name = "john",
                             PhoneNumber = "987654321",
-                            Status = "Open",
                             UpdatedBy = "System"
                         },
                         new
@@ -532,12 +578,12 @@ namespace PetAdoptionCenter.Migrations
                             Id = 2,
                             Address = "punggol",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8426),
-                            DateUpdated = new DateTime(2025, 2, 3, 11, 44, 43, 43, DateTimeKind.Local).AddTicks(8427),
+                            DateCreated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5630),
+                            DateUpdated = new DateTime(2025, 2, 9, 4, 26, 45, 974, DateTimeKind.Local).AddTicks(5631),
                             Email = "fitri@admin.com",
+                            IsApproved = false,
                             Name = "fitri",
                             PhoneNumber = "987654321",
-                            Status = "Open",
                             UpdatedBy = "System"
                         });
                 });

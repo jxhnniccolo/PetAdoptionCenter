@@ -1,67 +1,211 @@
 ﻿@page "/adoptionapplicationpage"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+@using PetAdoptionCenter.Domain
+@inject IDbContextFactory<PetAdoptionCenterContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
 
-<h1 class="text-center mb-5">Adoption Application</h1>
+<header class="header py-5 text-white text-center" style="background: linear-gradient(to right, #87CEFA, #4682B4);">
+    <h1>🐾 Adoption Application 🐾</h1>
+</header>
 
-<section class="hero-section d-flex align-items-center" style="background-color: #FFDAB9; min-height: 400px; position: relative;">
-    <img src="Image/appli.png" alt="Adoption Banner" class="img-fluid position-absolute w-100 h-100" style="object-fit: cover; opacity: 0.7;">
-    <div class="container text-center position-relative" style="z-index: 1;">
-        <p class="lead">
-            Thank you for considering adopting a pet and giving them a loving forever home! Please fill out the application form below, and we’ll get back to you as soon as possible to help you start this heartwarming journey.
+<section class="hero-section d-flex align-items-center justify-content-center text-center"
+         style="background-color: #FFDAB9; min-height: 300px; position: relative; overflow: hidden;">
+    <img src="Image/appli.png" alt="Adoption Banner"
+         class="img-fluid position-absolute w-100 h-100" style="object-fit: cover; opacity: 0.4;">
+    <div class="container position-relative text-white p-4" style="z-index: 1; background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
+        <h2>Give a Pet a Forever Home</h2>
+        <p>
+            Fill out the application form below, and our team will review your application shortly.
         </p>
     </div>
 </section>
 
-<form class="application-form mt-5">
-    <div class="form-group mb-3">
-        <label for="name" class="form-label">Full Name</label>
-        <input id="name" type="text" class="form-control" placeholder="Enter your full name" />
-    </div>
+<section class="container my-5 p-4 rounded shadow-lg bg-light">
+    <h3 class="text-center text-primary mb-4">Adoption Application Form</h3>
 
-    <div class="form-group mb-3">
-        <label for="email" class="form-label">Email Address</label>
-        <input id="email" type="email" class="form-control" placeholder="Enter your email" />
-    </div>
+    <EditForm Model="@adoptionApplication" OnValidSubmit="HandleSubmit" FormName="AdoptionApplicationForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="form-group mb-3">
-        <label for="phone" class="form-label">Phone Number</label>
-        <input id="phone" type="tel" class="form-control" placeholder="Enter your phone number" />
-    </div>
+        <div class="mb-3">
+            <label for="email" class="form-label fw-bold">Email</label>
+            <InputText id="email" class="form-control rounded-3" @bind-Value="adoptionApplication.Email" placeholder="Enter your email" />
+            <ValidationMessage For="@(() => adoptionApplication.Email)" />
+        </div>
 
-    <div class="form-group mb-3">
-        <label for="address" class="form-label">Home Address</label>
-        <textarea id="address" class="form-control" placeholder="Enter your full home address"></textarea>
-    </div>
+        <div class="mb-3">
+            <label for="applicationDate" class="form-label fw-bold">Application Date</label>
+            <InputDate id="applicationDate" class="form-control rounded-3" @bind-Value="adoptionApplication.ApplicationDate" />
+        </div>
 
-    <div class="form-group mb-3">
-        <label for="pet" class="form-label">Which Pet Are You Interested In?</label>
-        <select id="pet" class="form-select">
-            <option disabled selected>Select a pet</option>
-            <option>Domestic Shorthair (Tabby)</option>
-            <option>Golden Retriever</option>
-            <option>Persian Cat</option>
-            <option>Labrador</option>
-        </select>
-    </div>
+        <div class="mb-3">
+            <label for="petID" class="form-label fw-bold">Pet ID</label>
+            <InputNumber id="petID" class="form-control rounded-3" @bind-Value="adoptionApplication.PetID" placeholder="Enter the Pet ID" />
+        </div>
 
-    <div class="form-group mb-3">
-        <label for="reason" class="form-label">Why Do You Want to Adopt a Pet?</label>
-        <textarea id="reason" class="form-control" placeholder="Tell us why you’d like to adopt a pet"></textarea>
-    </div>
+        <button type="submit" class="btn btn-primary w-100 rounded-pill shadow">
+            Submit Application
+        </button>
+    </EditForm>
+</section>
 
-    <div class="form-group mb-3">
-        <label for="experience" class="form-label">Do You Have Experience with Pets?</label>
-        <textarea id="experience" class="form-control" placeholder="Share any relevant experience caring for pets"></textarea>
-    </div>
+@if (isAdmin)
+{
+    <section class="container my-5 p-4 rounded shadow-lg bg-warning">
+        <h3 class="text-center text-dark mb-4">Pending Adoption Applications</h3>
 
-    <div class="form-group mb-3 d-flex align-items-center">
-        <input id="terms" type="checkbox" class="form-check-input" />
-        <label for="terms" class="form-check-label ms-2">
-            I agree to the <a href="/terms-and-conditions" class="text-decoration-none">terms and conditions</a>.
-        </label>
-    </div>
+        @if (adoptionApplications == null || !adoptionApplications.Any(a => !a.IsDeleted))
+        {
+            <p class="text-center text-muted">No pending adoption applications.</p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Approved</th>
+                        <th>Application Date</th>
+                        <th>Email</th>
+                        <th>Pet ID</th>
+                        <th>Processed By</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var application in adoptionApplications.Where(a => !a.IsDeleted))
+                    {
+                        <tr>
+                            <td>@application.Id</td>
+                            <td>@(application.IsApproved ? "✅ Approved" : "⏳ Pending")</td>
+                            <td>@application.ApplicationDate?.ToString("yyyy-MM-dd")</td>
+                            <td>@application.Email</td>
+                            <td>@application.PetID</td>
+                            <td>@application.ProcessedBy</td>
+                            <td>
+                                @if (!application.IsApproved)
+                                {
+                                    <button class="btn btn-success btn-sm me-2" @onclick="() => ApproveApplication(application.Id)">✅ Approve</button>
+                                }
+                                <button class="btn btn-danger btn-sm" @onclick="() => DeleteApplication(application.Id)">❌ Delete</button>
 
-    <button type="submit" class="btn btn-primary w-100">Submit Application</button>
-</form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </section>
+}
+
+<footer class="footer py-4 text-white text-center" style="background: linear-gradient(to right, #4682B4, #1E3A5F);">
+    <p>&copy; 2024 Pet Adoption Center. All rights reserved.</p>
+    <nav>
+        <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+        <a href="#" class="text-white text-decoration-none">Terms of Service</a>
+    </nav>
+</footer>
 
 @code {
+    private bool isAdmin = false;
+    private List<AdoptionApplication> adoptionApplications = new();
+    private AdoptionApplication adoptionApplication = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isAdmin = user.Identity?.IsAuthenticated == true && user.Identity.Name == "admin@localhost.com";
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            adoptionApplication.Email = user.Identity.Name;
+        }
+
+        await LoadAdoptionApplications();
+    }
+
+    private async Task LoadAdoptionApplications()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        adoptionApplications = await context.AdoptionApplication
+            .Where(a => !a.IsDeleted) // Exclude deleted applications
+            .ToListAsync();
+    }
+
+    private async Task HandleSubmit()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+
+        adoptionApplication.IsApproved = false; // Default to Pending
+        adoptionApplication.IsDeleted = false; // Ensure application is not marked as deleted
+        adoptionApplication.DateCreated = DateTime.Now;
+        adoptionApplication.DateUpdated = DateTime.Now;
+        adoptionApplication.CreatedBy = "System";
+        adoptionApplication.UpdatedBy = "System";
+        adoptionApplication.ApplicationDate ??= DateTime.Now;
+        adoptionApplication.ProcessedBy = "System";
+
+        context.AdoptionApplication.Add(adoptionApplication);
+        await context.SaveChangesAsync();
+
+        adoptionApplication = new();
+        adoptionApplication.Email = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity?.Name;
+
+        await LoadAdoptionApplications();
+    }
+
+    private async Task ApproveApplication(int applicationId)
+    {
+        await JS.InvokeVoidAsync("console.log", $"Approving Application ID: {applicationId}");
+
+        using var context = await DbFactory.CreateDbContextAsync();
+        var application = await context.AdoptionApplication.FindAsync(applicationId);
+
+        if (application != null)
+        {
+            application.IsApproved = true;
+            application.ProcessedBy = "admin@localhost.com";
+            application.DateUpdated = DateTime.Now;
+
+            context.AdoptionApplication.Update(application); // Ensure entity is tracked
+            await context.SaveChangesAsync();
+
+            adoptionApplications = await context.AdoptionApplication
+                .Where(a => !a.IsDeleted) // Reload filtered list
+                .ToListAsync();
+
+            StateHasChanged();
+        }
+    }
+
+
+    private async Task DeleteApplication(int applicationId)
+    {
+        await JS.InvokeVoidAsync("console.log", $"Deleting Application ID: {applicationId}");
+
+        using var context = await DbFactory.CreateDbContextAsync();
+        var applicationToDelete = await context.AdoptionApplication.FindAsync(applicationId);
+
+        if (applicationToDelete != null)
+        {
+            applicationToDelete.IsDeleted = true; // Soft delete
+            applicationToDelete.DateUpdated = DateTime.Now;
+
+            context.AdoptionApplication.Update(applicationToDelete); // Ensure entity is tracked
+            await context.SaveChangesAsync();
+
+            adoptionApplications = await context.AdoptionApplication
+                .Where(a => !a.IsDeleted) // Reload filtered list
+                .ToListAsync();
+
+            StateHasChanged();
+        }
+    }
+
 }

@@ -4,10 +4,6 @@
 <PageTitle>Home</PageTitle>
 
 <style>
-
-    /* Reset default margin and padding */
-
-
     /* Full-screen hero section */
     .hero {
         position: relative;
@@ -67,26 +63,29 @@
         margin-bottom: 20px;
     }
 
-        nav a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: color 0.3s ease;
+    /* Scoped hover effect: Only for this page */
+    .hero-content nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+        .hero-content nav a:hover {
+            color: yellow; /* Change only text color */
         }
 
-            nav a:hover {
-                color: #ffcc00; /* Highlight effect */
-            }
-
-    /* CTA Button */
+    /* Styled NavLink as a button */
     .adopt-now {
+        display: inline-block;
         background-color: #ff9800;
         color: white;
         padding: 12px 25px;
         font-size: 18px;
         border-radius: 5px;
-        border: none;
-        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
         transition: background 0.3s ease, transform 0.2s ease;
     }
 
@@ -121,7 +120,7 @@
                 Experience the love and joy of an adopted pet. 🐾🐾🐾🐾🐾
             </p>
             <div class="hero-buttons">
-                <button class="adopt-now">Adopt Now</button>
+                <NavLink href="@AdoptNowLink" class="adopt-now">Adopt Now</NavLink>
             </div>
         </div>
     </section>
@@ -132,3 +131,19 @@
         <p>&copy; 2025 Bring Me Home! All rights reserved.</p>
     </div>
 </footer>
+
+@code {
+    private string AdoptNowLink = "/Account/Login";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        // If user is authenticated, change the link to the pet page
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            AdoptNowLink = "/petpage";
+        }
+    }
+}

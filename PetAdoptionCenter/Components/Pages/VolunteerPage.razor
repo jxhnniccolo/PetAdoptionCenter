@@ -1,123 +1,166 @@
 ﻿@page "/volunteerpage"
 @rendermode InteractiveServer
 
-<h1 class="text-center mb-4 text-primary">Become a Volunteer</h1>
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
+@using PetAdoptionCenter.Domain
+@inject IDbContextFactory<PetAdoptionCenterContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS // Inject JavaScript Runtime
 
-<section class="hero-section d-flex align-items-center" style="background-color: #FFDAB9; min-height: 400px; position: relative;">
-    <img src="Image/v2.jpg" alt="Volunteering with pets" class="img-fluid position-absolute w-100 h-100" style="object-fit: cover; opacity: 0.7;">
-    <div class="container text-center position-relative" style="z-index: 1;">
-        <h2 class="text-black">Make a Difference Today!</h2>
-        <p class="text-black">
-            Volunteering with us is more than just lending a hand—it's about saving lives, creating meaningful connections, and being a part of a community that cares deeply about animals.
-            Whether you’re helping with pet care, organizing events, or spreading the word, every moment you spend volunteering makes an impact.
-        </p>
+<header class="header py-5 text-white text-center" style="background: linear-gradient(to right, #87CEFA, #4682B4);">
+    <h1>🐾 Become a Volunteer 🐾</h1>
+    <p class="lead">Make a difference in the lives of animals today!</p>
+    <nav class="nav justify-content-center mt-3">
+        <NavLink href="/" class="nav-link text-white mx-3">Home</NavLink>
+        <NavLink href="/petpage" class="nav-link text-white mx-3">Pet Page</NavLink>
+        <NavLink href="/adoptionapplicationpage" class="nav-link text-white mx-3">Adoption Application</NavLink>
+    </nav>
+</header>
+
+<section class="container my-5">
+    <h3 class="text-center text-primary">🤝 Join Our Volunteer Team 🤝</h3>
+    <p class="text-center text-muted">Help us make a difference in the lives of animals!</p>
+
+    <div class="text-center my-4">
+        <button class="btn btn-success px-4 py-2 shadow-lg rounded-pill" @onclick="ShowSignUpForm">✍ Sign Up to Volunteer</button>
     </div>
-</section>
 
-<section class="benefits-section py-5" style="background: linear-gradient(to bottom, #FFFFFF, #E6E6FA);">
-    <h2 class="text-center text-primary">Why Volunteer?</h2>
-    <div class="benefits-grid d-flex flex-wrap justify-content-around">
-        <div class="benefit-card shadow-lg rounded mb-4 position-relative" style="background-color: #F5F5F5; width: 300px; height: 300px;">
-            <img src="Image/2.jpg" alt="Make a difference icon"
-                 class="position-absolute w-100 h-100 rounded"
-                 style="object-fit: cover; opacity: 0.7;">
-            <div class="text-content position-relative text-center p-3" style="z-index: 1;">
-                <h3>Make a Difference</h3>
-                <p>Your efforts will help provide a loving home for countless animals in need.</p>
-            </div>
-        </div>
-        <div class="benefit-card shadow-lg rounded mb-4 position-relative" style="background-color: #F5F5F5; width: 300px; height: 300px;">
-            <img src="Image/com.jpg" alt="Community icon"
-                 class="position-absolute w-100 h-100 rounded"
-                 style="object-fit: cover; opacity: 0.7;">
-            <div class="text-content position-relative text-center p-3" style="z-index: 1;">
-                <h3>Be Part of a Community</h3>
-                <p>Join a group of passionate animal lovers and make lifelong friends.</p>
-            </div>
-        </div>
-        <div class="benefit-card shadow-lg rounded mb-4 position-relative" style="background-color: #F5F5F5; width: 300px; height: 300px;">
-            <img src="Image/skill.png" alt="Learn new skills icon"
-                 class="position-absolute w-100 h-100 rounded"
-                 style="object-fit: cover; opacity: 0.7;">
-            <div class="text-content position-relative text-center p-3" style="z-index: 1;">
-                <h3>Learn & Grow</h3>
-                <p>Enhance your skills in pet care, event organization, and leadership.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="testimonials-section py-5" style="background: linear-gradient(to right, #FFEFDB, #FFE4E1);">
-    <h2 class="text-center text-primary">What Our Volunteers Say</h2>
-    <div class="testimonial-cards d-flex flex-wrap justify-content-around">
-        <div class="testimonial-card shadow-lg p-4 rounded mb-4" style="background-color: #FFFFFF;">
-            <p>"Volunteering here changed my life. I’ve found a new purpose and met amazing people along the way!"</p>
-            <h4>- Emily R.</h4>
-        </div>
-        <div class="testimonial-card shadow-lg p-4 rounded mb-4" style="background-color: #FFFFFF;">
-            <p>"Seeing a rescued pet find a loving home is the best feeling in the world. Highly recommend it!"</p>
-            <h4>- Michael T.</h4>
-        </div>
-        <div class="testimonial-card shadow-lg p-4 rounded mb-4" style="background-color: #FFFFFF;">
-            <p>"I’ve gained so much experience and joy from working with such a dedicated team!"</p>
-            <h4>- Sarah L.</h4>
-        </div>
-    </div>
-</section>
-
-<section class="cta-section py-5" style="background: linear-gradient(to bottom, #FFD700, #FFA07A);">
-    <h2 class="text-center text-primary">Ready to Make an Impact?</h2>
-    <p class="text-center">
-        Join our volunteer team today and start making a difference in the lives of animals and their future families.
-    </p>
-    <div class="text-center">
-        <button class="btn btn-primary btn-lg shadow-lg" @onclick="ShowSignUpForm">Sign Up to Volunteer</button>
-    </div>
-</section>
-
-<!-- Modal for Sign-Up Form -->
-@if (isSignUpFormVisible)
-{
-    <div class="modal fade show" tabindex="-1" style="display: block;" aria-hidden="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Volunteer Sign-Up</h5>
-                    <button type="button" class="btn-close" @onclick="HideSignUpForm"></button>
+    @if (isSignUpFormVisible)
+    {
+        <div class="card p-4 shadow-lg rounded">
+            <h4 class="text-center mb-3">Volunteer Sign-Up Form</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" @bind="newVolunteer.Name" class="form-control" required />
                 </div>
-                <div class="modal-body">
-                    <EditForm Model="@volunteer" OnValidSubmit="HandleSignUp">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary />
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <InputText id="fullName" class="form-control" @bind-Value="volunteer.FullName" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <InputText id="email" class="form-control" @bind-Value="volunteer.Email" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <InputText id="phone" class="form-control" @bind-Value="volunteer.Phone" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Why do you want to volunteer?</label>
-                            <InputTextArea id="message" class="form-control" @bind-Value="volunteer.Message" />
-                        </div>
-                        <div class="mb-3 text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </EditForm>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" @bind="newVolunteer.Email" class="form-control" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" @bind="newVolunteer.PhoneNumber" class="form-control" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Address</label>
+                    <input type="text" @bind="newVolunteer.Address" class="form-control" required />
                 </div>
             </div>
+            <p class="text-muted text-center">⚠️ Your application will be reviewed by an admin before approval.</p>
+            <div class="text-center">
+                <button class="btn btn-primary rounded-pill px-4 py-2" @onclick="AddVolunteer">Submit</button>
+                <button class="btn btn-secondary rounded-pill px-4 py-2" @onclick="HideSignUpForm">Cancel</button>
+            </div>
+        </div>
+    }
+
+    <h3 class="text-center text-primary mt-5">👥 Approved Volunteers</h3>
+    <div class="row mt-4">
+        @if (volunteers == null || !volunteers.Any(v => v.IsApproved))
+        {
+            <p class="text-center text-muted">🐾 No approved volunteers yet. Be the first to make a difference! 🐾</p>
+        }
+        else
+        {
+            @foreach (var volunteer in volunteers.Where(v => v.IsApproved))
+            {
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="card shadow-lg rounded overflow-hidden volunteer-card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">@volunteer.Name</h4>
+                            <p class="text-muted"><strong>Email:</strong> @volunteer.Email</p>
+                            <p class="text-muted"><strong>Phone:</strong> @volunteer.PhoneNumber</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    @if (isAdmin)
+    {
+        <h3 class="text-center text-warning mt-5">🚨 Pending Volunteer Approvals</h3>
+        <div class="row mt-4">
+            @foreach (var volunteer in volunteers.Where(v => !v.IsApproved))
+            {
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="card shadow-lg rounded overflow-hidden volunteer-card border-warning">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">@volunteer.Name</h4>
+                            <p class="text-muted"><strong>Email:</strong> @volunteer.Email</p>
+                            <p class="text-muted"><strong>Phone:</strong> @volunteer.PhoneNumber</p>
+                            <button class="btn btn-success w-100 mt-2 rounded-pill" @onclick="() => ApproveVolunteer(volunteer.Id)">✅ Approve</button>
+                            <button class="btn btn-danger w-100 mt-2 rounded-pill" @onclick="() => DeleteVolunteer(volunteer.Id)">❌ Reject</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>
+<section class="py-5" style="background: linear-gradient(to right, #FFEFDB, #FFE4E1);">
+    <h2 class="text-center text-primary">💬 What Our Volunteers Say</h2>
+    <div class="row mt-4 text-center">
+        <div class="col-md-4">
+            <div class="testimonial-card shadow-lg p-4 rounded bg-white">
+                <p>"Volunteering here changed my life. I found purpose and amazing friends!"</p>
+                <h5>- Emily R.</h5>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card shadow-lg p-4 rounded bg-white">
+                <p>"Seeing rescued pets find loving homes is the best feeling in the world!"</p>
+                <h5>- Michael T.</h5>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card shadow-lg p-4 rounded bg-white">
+                <p>"I’ve gained so much experience and joy working with such a dedicated team!"</p>
+                <h5>- Sarah L.</h5>
+            </div>
         </div>
     </div>
-}
+</section>
+<footer class="footer py-4 text-center" style="background-color: #4682B4; color: white;">
+    <div class="container">
+        <p>&copy; 2024 Pet Adoption Center. All rights reserved.</p>
+        <nav>
+            <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+            <a href="#" class="text-white text-decoration-none">Terms of Service</a>
+        </nav>
+    </div>
+</footer>
+<style>
+    .volunteer-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .volunteer-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+</style>
 
 @code {
+    private List<Volunteer> volunteers = new();
+    private bool isAdmin = false;
     private bool isSignUpFormVisible = false;
-    private Volunteer volunteer = new Volunteer();
+    private Volunteer newVolunteer = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        volunteers = await context.Volunteer.ToListAsync();
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isAdmin = user.Identity?.IsAuthenticated == true && user.Identity.Name == "admin@localhost.com";
+    }
 
     private void ShowSignUpForm()
     {
@@ -127,20 +170,53 @@
     private void HideSignUpForm()
     {
         isSignUpFormVisible = false;
+        newVolunteer = new();
     }
 
-    private void HandleSignUp()
+    private async Task AddVolunteer()
     {
-        // Process the volunteer sign-up here (e.g., save the data)
-        Console.WriteLine($"Volunteer signed up: {volunteer.FullName}, {volunteer.Email}");
-        HideSignUpForm(); // Close the form after submission
+        using var context = await DbFactory.CreateDbContextAsync();
+
+        newVolunteer.DateCreated = DateTime.Now;
+        newVolunteer.DateUpdated = DateTime.Now;
+        newVolunteer.CreatedBy = "System";
+        newVolunteer.UpdatedBy = "System";
+        newVolunteer.IsApproved = false; // Pending approval
+
+        context.Volunteer.Add(newVolunteer);
+        await context.SaveChangesAsync();
+
+        volunteers = await context.Volunteer.ToListAsync();
+        isSignUpFormVisible = false;
+        newVolunteer = new();
     }
 
-    public class Volunteer
+    private async Task ApproveVolunteer(int volunteerId)
     {
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Message { get; set; }
+        using var context = await DbFactory.CreateDbContextAsync();
+        var volunteer = await context.Volunteer.FindAsync(volunteerId);
+
+        if (volunteer != null)
+        {
+            volunteer.IsApproved = true;
+            await context.SaveChangesAsync();
+            volunteers = await context.Volunteer.ToListAsync();
+        }
+    }
+
+    private async Task DeleteVolunteer(int volunteerId)
+    {
+        bool confirmDelete = await JS.InvokeAsync<bool>("confirm", "Are you sure you want to reject this volunteer?");
+        if (!confirmDelete) return;
+
+        using var context = await DbFactory.CreateDbContextAsync();
+        var volunteerToDelete = await context.Volunteer.FindAsync(volunteerId);
+
+        if (volunteerToDelete != null)
+        {
+            context.Volunteer.Remove(volunteerToDelete);
+            await context.SaveChangesAsync();
+            volunteers = await context.Volunteer.ToListAsync();
+        }
     }
 }
