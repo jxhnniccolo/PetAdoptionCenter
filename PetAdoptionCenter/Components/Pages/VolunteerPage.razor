@@ -8,8 +8,10 @@
 @inject IDbContextFactory<PetAdoptionCenterContext> DbFactory
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IJSRuntime JS // Inject JavaScript Runtime
+@inject IJSRuntime JS
+
 <PageTitle>Volunteer Page</PageTitle>
+
 <header class="header py-5 text-white text-center">
     <h1>🐾 Become a Volunteer 🐾</h1>
     <p class="lead">Make a difference in the lives of animals today!</p>
@@ -58,14 +60,38 @@
         </div>
     }
 
-    <h3 class="text-center mt-5" style="color: #35455D;">👥 Approved Volunteers</h3>
-    <div class="row mt-4">
-        @if (volunteers == null || !volunteers.Any(v => v.IsApproved))
+    @if (isAdmin)
+    {
+        <h3 class="text-center mt-5" style="color: #35455D;">👥 Pending Volunteer Applications</h3>
+
+        @if (volunteers.Any(v => !v.IsApproved))
         {
-            <p class="text-center" style="color: #92B1B6;">🐾 No approved volunteers yet. Be the first to make a difference! 🐾</p>
+            <div class="row mt-4">
+                @foreach (var volunteer in volunteers.Where(v => !v.IsApproved))
+                {
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow-lg rounded">
+                            <div class="card-body text-center">
+                                <h4 class="card-title" style="color: #35455D;">@volunteer.Name</h4>
+                                <p style="color: #92B1B6;"><strong>Email:</strong> @volunteer.Email</p>
+                                <p style="color: #92B1B6;"><strong>Phone:</strong> @volunteer.PhoneNumber</p>
+                                <p style="color: #92B1B6;"><strong>Address:</strong> @volunteer.Address</p>
+
+                                <button class="btn btn-success rounded-pill px-3 py-2" @onclick="@(() => ApproveVolunteer(volunteer.Id))">✅ Approve</button>
+                                <button class="btn btn-danger rounded-pill px-3 py-2 ms-2" @onclick="@(() => DeleteVolunteer(volunteer.Id))">❌ Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         }
-        else
-        {
+    }
+
+    <h3 class="text-center mt-5" style="color: #35455D;">👥 Approved Volunteers</h3>
+
+    @if (volunteers.Any(v => v.IsApproved))
+    {
+        <div class="row mt-4">
             @foreach (var volunteer in volunteers.Where(v => v.IsApproved))
             {
                 <div class="col-md-4 col-lg-3 mb-4">
@@ -78,47 +104,12 @@
                     </div>
                 </div>
             }
-        }
-    </div>
+        </div>
+    }
 </section>
-
-<section class="py-5" style="background: linear-gradient(to right, #BFD1DF, #CED2C2);">
-    <h2 class="text-center" style="color: #35455D;">💬 What Our Volunteers Say</h2>
-    <div class="row mt-4 text-center">
-        <div class="col-md-4">
-            <div class="testimonial-card shadow-lg p-4 rounded">
-                <p>"Volunteering here changed my life. I found purpose and amazing friends!"</p>
-                <h5 style="color: #92B1B6;">- Emily R.</h5>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="testimonial-card shadow-lg p-4 rounded">
-                <p>"Seeing rescued pets find loving homes is the best feeling in the world!"</p>
-                <h5 style="color: #92B1B6;">- Michael T.</h5>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="testimonial-card shadow-lg p-4 rounded">
-                <p>"I’ve gained so much experience and joy working with such a dedicated team!"</p>
-                <h5 style="color: #92B1B6;">- Sarah L.</h5>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer class="footer py-4 text-center">
-    <div class="container">
-        <p>&copy; 2025 Bring Me Home! All rights reserved.</p>
-        <nav>
-            <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
-            <a href="#" class="text-white text-decoration-none">Terms of Service</a>
-        </nav>
-    </div>
-</footer>
-
 <style>
     .header {
-        background: linear-gradient(to right, #F1C5AE, #92B1B6); /* Coral to teal gradient */
+        background: linear-gradient(to right, #F1C5AE, #92B1B6);
     }
 
     .btn {
@@ -132,6 +123,11 @@
         color: #35455D;
     }
 
+    .btn-danger {
+        background-color: #E74C3C;
+        color: white;
+    }
+
     .card {
         background-color: #FFEFDB;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
@@ -140,6 +136,7 @@
 
     .footer {
         background-color: #35455D;
+        color: white;
     }
 
     .testimonial-card {
@@ -184,7 +181,7 @@
         newVolunteer.DateUpdated = DateTime.Now;
         newVolunteer.CreatedBy = "System";
         newVolunteer.UpdatedBy = "System";
-        newVolunteer.IsApproved = false; // Pending approval
+        newVolunteer.IsApproved = false;
 
         context.Volunteer.Add(newVolunteer);
         await context.SaveChangesAsync();
@@ -196,6 +193,8 @@
 
     private async Task ApproveVolunteer(int volunteerId)
     {
+        if (!isAdmin) return;
+
         using var context = await DbFactory.CreateDbContextAsync();
         var volunteer = await context.Volunteer.FindAsync(volunteerId);
 
@@ -209,8 +208,7 @@
 
     private async Task DeleteVolunteer(int volunteerId)
     {
-        bool confirmDelete = await JS.InvokeAsync<bool>("confirm", "Are you sure you want to reject this volunteer?");
-        if (!confirmDelete) return;
+        if (!isAdmin) return;
 
         using var context = await DbFactory.CreateDbContextAsync();
         var volunteerToDelete = await context.Volunteer.FindAsync(volunteerId);
