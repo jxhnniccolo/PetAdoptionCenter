@@ -1,6 +1,6 @@
 ﻿@page "/aboutus"
-
-<h1 class="text-center"><strong>About us</strong></h1>
+<PageTitle>About Us</PageTitle>
+<h1 class="text-center"><strong>About Us</strong></h1>
 
 <section class="team-section">
     <div class="team-card">
@@ -49,20 +49,22 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2024 Your Website. All rights reserved.</p>
+        <p>&copy; 2024 Pet Adoption Center. All rights reserved.</p>
         <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </div>
 </footer>
 
 <style>
     body {
-        background-color: #FFF5F5; /* Snow - soft off-white background */
+        background-color: #FFF5F5; /* Snow background */
         color: #3A5253; /* Dark Slate Gray text */
-        font-family: Arial, sans-serif;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
     }
 
     h1 {
-        color: #27231E; /* Eerie Black */
+        color: #35455D; /* Navy blue */
         text-align: center;
         padding: 20px;
     }
@@ -75,26 +77,26 @@
     }
 
     .team-card {
-        background-color: #E07A5F; /* Burnt Sienna card background */
+        background-color: #92B1B6; /* Muted teal */
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
         width: 30%;
         text-align: center;
-        color: white; /* White text for contrast */
+        color: #FFF5F5; /* White text */
     }
 
     .hero-section {
         position: relative;
         display: flex;
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
+        justify-content: center;
+        align-items: center;
         padding: 40px;
-        background-color: #3A5253; /* Dark Slate Gray background */
-        background-image: url('Image/ourStory.jpg'); /* Add your image path here */
-        background-size: cover; /* Make sure the image covers the section */
-        background-position: center; /* Center the background image */
-        background-repeat: no-repeat; /* Prevent repeating the image */
+        background-color: #35455D; /* Navy blue */
+        background-image: url('Image/ourStory.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .hero-section-overlay {
@@ -103,46 +105,44 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+        background: rgba(0, 0, 0, 0.5);
     }
 
     .hero-content {
         position: relative;
-        z-index: 1; /* Ensure the content is above the overlay */
-        width: 60%; /* Increase the width for better readability */
+        z-index: 1;
         text-align: center;
-        color: #FFF5F5; /* White text for better contrast */
+        color: #FFF5F5; /* White text */
+        max-width: 800px;
+        line-height: 1.6;
     }
 
         .hero-content h2 {
-            font-size: 3em; /* Increase font size */
+            font-size: 2.5rem;
             margin-bottom: 20px;
         }
 
         .hero-content p {
-            font-size: 1.2em; /* Slightly increase the font size */
-            line-height: 1.8;
+            font-size: 1.2rem;
         }
 
     .footer-columns {
         display: flex;
-        justify-content: space-around;
-        padding: 40px 0;
-        background-color: #27231E; /* Eerie Black footer */
+        justify-content: center;
+        padding: 40px;
+        background-color: #35455D; /* Navy blue footer */
+        color: #FFF5F5;
     }
 
-        .footer-columns p {
-            color: #FFF5F5; /* Snow text color */
-        }
-
     .footer-bottom {
-        background-color: #E07A5F; /* Burnt Sienna footer */
+        background-color: #92B1B6; /* Muted teal */
         text-align: center;
         padding: 20px;
+        color: #FFF5F5;
     }
 
         .footer-bottom a {
-            color: #FFF5F5; /* Snow text */
+            color: #FFF5F5;
             text-decoration: none;
         }
 
@@ -151,8 +151,8 @@
             }
 
     button {
-        background-color: #81B29A; /* Cambridge Blue button */
-        color: #27231E; /* Eerie Black text */
+        background-color: #E07A5F; /* Burnt sienna */
+        color: white;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
@@ -160,14 +160,14 @@
     }
 
         button:hover {
-            background-color: #3A5253; /* Dark Slate Gray on hover */
+            background-color: #3A5253; /* Dark Slate Gray */
         }
 
     input[type="email"] {
         padding: 10px;
-        width: 100%;
+        width: calc(100% - 20px);
         margin-bottom: 10px;
-        border: 1px solid #E07A5F; /* Burnt Sienna border */
+        border: 1px solid #E07A5F; /* Burnt sienna */
         border-radius: 5px;
     }
 </style>

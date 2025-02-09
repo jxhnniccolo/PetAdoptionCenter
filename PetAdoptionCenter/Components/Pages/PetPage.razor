@@ -9,8 +9,9 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime JS // Inject JavaScript Runtime
+<PageTitle>Pets</PageTitle>
 
-<header class="header py-5 text-white text-center" style="background: linear-gradient(to right, #87CEFA, #4682B4);">
+<header class="header py-5 text-white text-center">
     <h1>🐾 Find Your Furry Friend 🐾</h1>
     <p class="lead">Discover lovable pets looking for a forever home!</p>
     <nav class="nav justify-content-center mt-3">
@@ -21,47 +22,47 @@
 </header>
 
 <section class="container my-5">
-    <h3 class="text-center text-primary">🐶🐱 Available Pets for Adoption</h3>
-    <p class="text-center text-muted">Find the perfect pet that matches your heart!</p>
+    <h3 class="text-center" style="color: #35455D;">🐶🐱 Available Pets for Adoption</h3>
+    <p class="text-center" style="color: #92B1B6;">Find the perfect pet that matches your heart!</p>
 
     @if (isAdmin)
     {
         <div class="text-center my-4">
-            <button class="btn btn-success px-4 py-2 shadow-lg rounded-pill" @onclick="ShowAddPetForm">➕ Add New Pet</button>
+            <button class="btn shadow-lg rounded-pill" style="background-color: #F1C5AE; color: #35455D;" @onclick="ShowAddPetForm">➕ Add New Pet</button>
         </div>
 
         @if (showAddPetForm)
         {
-            <div class="card p-4 shadow-lg rounded">
-                <h4 class="text-center mb-3">Add a New Pet</h4>
+            <div class="card p-4 shadow-lg rounded" style="background-color: #FFEFDB;">
+                <h4 class="text-center mb-3" style="color: #35455D;">Add a New Pet</h4>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Name</label>
+                        <label class="form-label" style="color: #35455D;">Name</label>
                         <input type="text" @bind="newPet.Name" class="form-control" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Species</label>
+                        <label class="form-label" style="color: #35455D;">Species</label>
                         <input type="text" @bind="newPet.Species" class="form-control" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Breed</label>
+                        <label class="form-label" style="color: #35455D;">Breed</label>
                         <input type="text" @bind="newPet.Breeed" class="form-control" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Age</label>
+                        <label class="form-label" style="color: #35455D;">Age</label>
                         <input type="number" @bind="newPet.Age" class="form-control" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label class="form-label">Description</label>
+                        <label class="form-label" style="color: #35455D;">Description</label>
                         <textarea @bind="newPet.Description" class="form-control"></textarea>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label class="form-label">Image URL</label>
+                        <label class="form-label" style="color: #35455D;">Image URL</label>
                         <input type="text" @bind="newPet.ImageUrl" class="form-control" />
                     </div>
                 </div>
                 <div class="text-center">
-                    <button class="btn btn-primary rounded-pill px-4 py-2" @onclick="AddPet">Submit</button>
+                    <button class="btn rounded-pill px-4 py-2" style="background-color: #92B1B6; color: white;" @onclick="AddPet">Submit</button>
                     <button class="btn btn-secondary rounded-pill px-4 py-2" @onclick="HideAddPetForm">Cancel</button>
                 </div>
             </div>
@@ -71,30 +72,30 @@
     <div class="row mt-4">
         @if (pets == null || pets.Count == 0)
         {
-            <p class="text-center text-muted">🐾 No pets available for adoption at the moment. Check back soon! 🐾</p>
+            <p class="text-center" style="color: #92B1B6;">🐾 No pets available for adoption at the moment. Check back soon! 🐾</p>
         }
         else
         {
             @foreach (var pet in pets)
             {
                 <div class="col-md-4 col-lg-3 mb-4">
-                    <div class="card shadow-lg rounded overflow-hidden pet-card">
+                    <div class="card shadow-lg rounded overflow-hidden pet-card" style="background-color: #FFEFDB;">
                         <img src="@pet.ImageUrl" alt="@pet.Name" class="card-img-top" style="height: 250px; object-fit: cover;"
                              onerror="this.onerror=null;this.src='Image/petPlaceholder.png';">
                         <div class="card-body text-center">
-                            <h4 class="card-title">@pet.Name</h4>
-                            <p class="text-muted"><strong>ID:</strong> @pet.Id</p> <!-- Pet ID is now displayed but auto-generated -->
-                            <p class="text-muted">Breed: @pet.Breeed | Age: @pet.Age years</p>
-                            <p class="card-text text-truncate">@pet.Description</p>
+                            <h4 class="card-title" style="color: #35455D;">@pet.Name</h4>
+                            <p style="color: #35455D;"><strong>ID:</strong> @pet.Id</p> <!-- Pet ID is now displayed but auto-generated -->
+                            <p style="color: #35455D;">Breed: @pet.Breeed | Age: @pet.Age years</p>
+                            <p class="card-text text-truncate" style="color: #35455D;">@pet.Description</p>
 
                             @if (!isAdmin)
                             {
-                                <NavLink href="/adoptionapplicationpage" class="btn btn-primary w-100 rounded-pill">Adopt</NavLink>
+                                <NavLink href="/adoptionapplicationpage" class="btn rounded-pill w-100" style="background-color: #92B1B6; color: white;">Adopt</NavLink>
                             }
 
                             @if (isAdmin)
                             {
-                                <button class="btn btn-danger mt-2 w-100 rounded-pill" @onclick="() => DeletePet(pet.Id)">Delete</button>
+                                <button class="btn rounded-pill w-100 mt-2" style="background-color: #F1C5AE; color: #35455D;" @onclick="() => DeletePet(pet.Id)">Delete</button>
                             }
                         </div>
                     </div>
@@ -104,7 +105,7 @@
     </div>
 </section>
 
-<footer class="footer py-4 text-white text-center" style="background: linear-gradient(to right, #4682B4, #1E3A5F);">
+<footer class="footer py-4 text-center" style="background-color: #35455D; color: white;">
     <p>&copy; 2024 Pet Adoption Center. All rights reserved.</p>
     <nav>
         <a href="#" class="text-white mx-2 text-decoration-none">Privacy Policy</a> |
@@ -113,6 +114,10 @@
 </footer>
 
 <style>
+    .header {
+        background: linear-gradient(to right, #F1C5AE, #92B1B6); /* Coral to teal gradient */
+    }
+
     .pet-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -122,18 +127,8 @@
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-
-    .btn-danger:hover {
-        background-color: #c82333;
-        transform: scale(1.05);
-    }
-
-    .footer a:hover {
-        text-decoration: underline;
+    .footer {
+        background-color: #35455D;
     }
 </style>
 

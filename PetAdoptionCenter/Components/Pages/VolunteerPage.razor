@@ -9,8 +9,8 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime JS // Inject JavaScript Runtime
-
-<header class="header py-5 text-white text-center" style="background: linear-gradient(to right, #87CEFA, #4682B4);">
+<PageTitle>Volunteer Page</PageTitle>
+<header class="header py-5 text-white text-center">
     <h1>🐾 Become a Volunteer 🐾</h1>
     <p class="lead">Make a difference in the lives of animals today!</p>
     <nav class="nav justify-content-center mt-3">
@@ -21,128 +21,131 @@
 </header>
 
 <section class="container my-5">
-    <h3 class="text-center text-primary">🤝 Join Our Volunteer Team 🤝</h3>
-    <p class="text-center text-muted">Help us make a difference in the lives of animals!</p>
+    <h3 class="text-center" style="color: #35455D;">🤝 Join Our Volunteer Team 🤝</h3>
+    <p class="text-center" style="color: #92B1B6;">Help us make a difference in the lives of animals!</p>
 
     <div class="text-center my-4">
-        <button class="btn btn-success px-4 py-2 shadow-lg rounded-pill" @onclick="ShowSignUpForm">✍ Sign Up to Volunteer</button>
+        <button class="btn shadow-lg rounded-pill" style="background-color: #F1C5AE; color: #35455D;" @onclick="ShowSignUpForm">✍ Sign Up to Volunteer</button>
     </div>
 
     @if (isSignUpFormVisible)
     {
         <div class="card p-4 shadow-lg rounded">
-            <h4 class="text-center mb-3">Volunteer Sign-Up Form</h4>
+            <h4 class="text-center mb-3" style="color: #35455D;">Volunteer Sign-Up Form</h4>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Name</label>
+                    <label class="form-label" style="color: #35455D;">Name</label>
                     <input type="text" @bind="newVolunteer.Name" class="form-control" required />
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Email</label>
+                    <label class="form-label" style="color: #35455D;">Email</label>
                     <input type="email" @bind="newVolunteer.Email" class="form-control" required />
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Phone Number</label>
+                    <label class="form-label" style="color: #35455D;">Phone Number</label>
                     <input type="text" @bind="newVolunteer.PhoneNumber" class="form-control" required />
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Address</label>
+                    <label class="form-label" style="color: #35455D;">Address</label>
                     <input type="text" @bind="newVolunteer.Address" class="form-control" required />
                 </div>
             </div>
             <p class="text-muted text-center">⚠️ Your application will be reviewed by an admin before approval.</p>
             <div class="text-center">
-                <button class="btn btn-primary rounded-pill px-4 py-2" @onclick="AddVolunteer">Submit</button>
+                <button class="btn rounded-pill px-4 py-2" style="background-color: #92B1B6; color: white;" @onclick="AddVolunteer">Submit</button>
                 <button class="btn btn-secondary rounded-pill px-4 py-2" @onclick="HideSignUpForm">Cancel</button>
             </div>
         </div>
     }
 
-    <h3 class="text-center text-primary mt-5">👥 Approved Volunteers</h3>
+    <h3 class="text-center mt-5" style="color: #35455D;">👥 Approved Volunteers</h3>
     <div class="row mt-4">
         @if (volunteers == null || !volunteers.Any(v => v.IsApproved))
         {
-            <p class="text-center text-muted">🐾 No approved volunteers yet. Be the first to make a difference! 🐾</p>
+            <p class="text-center" style="color: #92B1B6;">🐾 No approved volunteers yet. Be the first to make a difference! 🐾</p>
         }
         else
         {
             @foreach (var volunteer in volunteers.Where(v => v.IsApproved))
             {
                 <div class="col-md-4 col-lg-3 mb-4">
-                    <div class="card shadow-lg rounded overflow-hidden volunteer-card">
+                    <div class="card shadow-lg rounded">
                         <div class="card-body text-center">
-                            <h4 class="card-title">@volunteer.Name</h4>
-                            <p class="text-muted"><strong>Email:</strong> @volunteer.Email</p>
-                            <p class="text-muted"><strong>Phone:</strong> @volunteer.PhoneNumber</p>
+                            <h4 class="card-title" style="color: #35455D;">@volunteer.Name</h4>
+                            <p style="color: #92B1B6;"><strong>Email:</strong> @volunteer.Email</p>
+                            <p style="color: #92B1B6;"><strong>Phone:</strong> @volunteer.PhoneNumber</p>
                         </div>
                     </div>
                 </div>
             }
         }
     </div>
-
-    @if (isAdmin)
-    {
-        <h3 class="text-center text-warning mt-5">🚨 Pending Volunteer Approvals</h3>
-        <div class="row mt-4">
-            @foreach (var volunteer in volunteers.Where(v => !v.IsApproved))
-            {
-                <div class="col-md-4 col-lg-3 mb-4">
-                    <div class="card shadow-lg rounded overflow-hidden volunteer-card border-warning">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">@volunteer.Name</h4>
-                            <p class="text-muted"><strong>Email:</strong> @volunteer.Email</p>
-                            <p class="text-muted"><strong>Phone:</strong> @volunteer.PhoneNumber</p>
-                            <button class="btn btn-success w-100 mt-2 rounded-pill" @onclick="() => ApproveVolunteer(volunteer.Id)">✅ Approve</button>
-                            <button class="btn btn-danger w-100 mt-2 rounded-pill" @onclick="() => DeleteVolunteer(volunteer.Id)">❌ Reject</button>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    }
 </section>
-<section class="py-5" style="background: linear-gradient(to right, #FFEFDB, #FFE4E1);">
-    <h2 class="text-center text-primary">💬 What Our Volunteers Say</h2>
+
+<section class="py-5" style="background: linear-gradient(to right, #BFD1DF, #CED2C2);">
+    <h2 class="text-center" style="color: #35455D;">💬 What Our Volunteers Say</h2>
     <div class="row mt-4 text-center">
         <div class="col-md-4">
-            <div class="testimonial-card shadow-lg p-4 rounded bg-white">
+            <div class="testimonial-card shadow-lg p-4 rounded">
                 <p>"Volunteering here changed my life. I found purpose and amazing friends!"</p>
-                <h5>- Emily R.</h5>
+                <h5 style="color: #92B1B6;">- Emily R.</h5>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="testimonial-card shadow-lg p-4 rounded bg-white">
+            <div class="testimonial-card shadow-lg p-4 rounded">
                 <p>"Seeing rescued pets find loving homes is the best feeling in the world!"</p>
-                <h5>- Michael T.</h5>
+                <h5 style="color: #92B1B6;">- Michael T.</h5>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="testimonial-card shadow-lg p-4 rounded bg-white">
+            <div class="testimonial-card shadow-lg p-4 rounded">
                 <p>"I’ve gained so much experience and joy working with such a dedicated team!"</p>
-                <h5>- Sarah L.</h5>
+                <h5 style="color: #92B1B6;">- Sarah L.</h5>
             </div>
         </div>
     </div>
 </section>
-<footer class="footer py-4 text-center" style="background-color: #4682B4; color: white;">
+
+<footer class="footer py-4 text-center">
     <div class="container">
-        <p>&copy; 2024 Pet Adoption Center. All rights reserved.</p>
+        <p>&copy; 2025 Bring Me Home! All rights reserved.</p>
         <nav>
             <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
             <a href="#" class="text-white text-decoration-none">Terms of Service</a>
         </nav>
     </div>
 </footer>
+
 <style>
-    .volunteer-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .header {
+        background: linear-gradient(to right, #F1C5AE, #92B1B6); /* Coral to teal gradient */
     }
 
-        .volunteer-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-        }
+    .btn {
+        font-size: 1rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #F1C5AE;
+        color: #35455D;
+    }
+
+    .card {
+        background-color: #FFEFDB;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .footer {
+        background-color: #35455D;
+    }
+
+    .testimonial-card {
+        background-color: #FFEFDB;
+        border-radius: 10px;
+    }
 </style>
 
 @code {

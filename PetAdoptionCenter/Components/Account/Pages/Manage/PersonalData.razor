@@ -4,23 +4,109 @@
 
 <PageTitle>Personal Data</PageTitle>
 
-<StatusMessage />
-<h3>Personal Data</h3>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #F9F5F0;
+        margin: 0;
+        padding: 0;
+    }
 
-<div class="row">
-    <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
-        <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-        </p>
+    .data-container {
+        max-width: 650px;
+        margin: 60px auto;
+        padding: 30px;
+        background: #FFFFFF;
+        border-radius: 12px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h3 {
+        color: #35455D;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #35455D, #5A7684);
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        margin-top: 10px;
+    }
+
+        .btn-primary:hover {
+            background: #BFD1DF;
+            color: #35455D;
+            transform: scale(1.05);
+        }
+
+    .btn-danger {
+        background: #F26D5B;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        margin-top: 10px;
+    }
+
+        .btn-danger:hover {
+            background: #D9534F;
+            transform: scale(1.05);
+        }
+
+    .alert-danger {
+        background-color: #F8D7DA;
+        color: #721C24;
+        border: 1px solid #F5C6CB;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .section {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        background: #F8F9FA;
+        text-align: left;
+    }
+
+        .section h4 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+</style>
+
+<div class="data-container">
+    <h3>Manage Personal Data</h3>
+    <StatusMessage />
+
+    <div class="section">
+        <h4>Your Data & Privacy</h4>
+        <p>Your account contains personal data that you have provided to us. You can choose to download a copy of this data or delete your account permanently.</p>
+    </div>
+
+    <div class="section">
+        <h4>Download Your Data</h4>
+        <p>If you want to keep a copy of your data, you can download it before proceeding with deletion.</p>
         <form action="Account/Manage/DownloadPersonalData" method="post">
             <AntiforgeryToken />
-            <button class="btn btn-primary" type="submit">Download</button>
+            <button class="btn btn-primary" type="submit">Download Data</button>
         </form>
-        <p>
-            <a href="Account/Manage/DeletePersonalData" class="btn btn-danger">Delete</a>
-        </p>
     </div>
+
+    <div class="alert alert-danger">
+        <strong>Warning!</strong> Deleting your personal data will <strong>permanently remove your account</strong>. This action <strong>cannot be undone</strong>.
+    </div>
+
+    <a href="Account/Manage/DeletePersonalData" class="btn btn-danger">Delete My Account</a>
 </div>
 
 @code {

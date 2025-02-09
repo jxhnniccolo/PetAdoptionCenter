@@ -12,45 +12,155 @@
 @inject IdentityUserAccessor UserAccessor
 @inject NavigationManager NavigationManager
 
-<PageTitle>Manage email</PageTitle>
+<PageTitle>Manage Email</PageTitle>
 
-<h3>Manage email</h3>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #F9F5F0;
+        margin: 0;
+        padding: 0;
+    }
 
-<StatusMessage Message="@message"/>
-<div class="row">
-    <div class="col-md-6">
-        <form @onsubmit="OnSendEmailVerificationAsync" @formname="send-verification" id="send-verification-form" method="post">
-            <AntiforgeryToken />
-        </form>
-        <EditForm Model="Input" FormName="change-email" OnValidSubmit="OnValidSubmitAsync" method="post">
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-            @if (isEmailConfirmed)
-            {
-                <div class="form-floating mb-3 input-group">
-                    <input type="text" value="@email" class="form-control" placeholder="Please enter your email." disabled />
-                    <div class="input-group-append">
-                        <span class="h-100 input-group-text text-success font-weight-bold">?</span>
-                    </div>
-                    <label for="email" class="form-label">Email</label>
-                </div>
-            }
-            else
-            {
-                <div class="form-floating mb-3">
-                    <input type="text" value="@email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label for="email" class="form-label">Email</label>
-                    <button type="submit" class="btn btn-link" form="send-verification-form">Send verification email</button>
-                </div>
-            }
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label for="new-email" class="form-label">New email</label>
-                <ValidationMessage For="() => Input.NewEmail" class="text-danger" />
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Change email</button>
-        </EditForm>
+    .email-container {
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 30px;
+        background: #FFFFFF;
+        border-radius: 12px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h3 {
+        color: #35455D;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .form-floating {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        border: 1px solid #92B1B6;
+        background-color: #F8F9FA;
+        color: #35455D;
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+        .form-control:focus {
+            border-color: #35455D;
+            box-shadow: 0 0 5px rgba(53, 69, 93, 0.5);
+        }
+
+    label {
+        color: #35455D;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #35455D, #5A7684);
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background: #BFD1DF;
+            color: #35455D;
+            transform: scale(1.05);
+        }
+
+    .btn-link {
+        font-size: 14px;
+        color: #35455D;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+        .btn-link:hover {
+            color: #5A7684;
+        }
+
+    .text-danger {
+        color: #F26D5B;
+    }
+
+    .email-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .email-icon {
+        width: 50px;
+        height: 50px;
+        background-color: #92B1B6;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .email-info {
+        text-align: left;
+    }
+</style>
+
+<div class="email-container">
+    <div class="email-card">
+        <div class="email-icon">📧</div>
+        <div class="email-info">
+            <h3>Manage Email</h3>
+            <p class="text-muted">Update your email address</p>
+        </div>
     </div>
+
+    <StatusMessage Message="@message" />
+
+    <form @onsubmit="OnSendEmailVerificationAsync" id="send-verification-form" method="post">
+        <AntiforgeryToken />
+    </form>
+
+    <EditForm Model="Input" FormName="change-email" OnValidSubmit="OnValidSubmitAsync" method="post">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" role="alert" />
+
+        @if (isEmailConfirmed)
+        {
+            <div class="form-floating input-group">
+                <input type="text" value="@email" class="form-control" placeholder="Email" disabled />
+                <div class="input-group-append">
+                    <span class="input-group-text text-success font-weight-bold">✔️ Verified</span>
+                </div>
+                <label for="email" class="form-label">Current Email</label>
+            </div>
+        }
+        else
+        {
+            <div class="form-floating">
+                <input type="text" value="@email" class="form-control" placeholder="Email" disabled />
+                <label for="email" class="form-label">Current Email</label>
+                <button type="submit" class="btn btn-link" form="send-verification-form">Send verification email</button>
+            </div>
+        }
+
+        <div class="form-floating">
+            <InputText @bind-Value="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Enter new email" />
+            <label for="new-email" class="form-label">New Email</label>
+            <ValidationMessage For="() => Input.NewEmail" class="text-danger" />
+        </div>
+
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Change Email</button>
+    </EditForm>
 </div>
 
 @code {
